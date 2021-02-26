@@ -65,7 +65,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数2
+			总文章数3
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -167,6 +167,99 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-C-指针常量与常量指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/26/C-%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88/">C++指针常量与常量指针</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/26/C-%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88/" class="archive-article-date">
+  	<time datetime="2021-02-26T10:43:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C/C++中，指针一直是编程语言的灵魂所在，指针的灵活性给编程带来了无限的可能性，但是也给初学者带来了噩梦。<br>本文以一个初学者的视角的看待指针常量和常量指针的区别，以及在完全无法理解的情况下，可以使用的一些技巧。</p>
+<h2 id="问题引出"><a href="#问题引出" class="headerlink" title="问题引出"></a>问题引出</h2><p><img src="https://img-blog.csdnimg.cn/20201022214905947.png#pic_center" alt="指针p指向x"><br>如上图所示，这里定义了一个指针p指向变量x。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span>* p = &amp;x;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="常量指针与指针常量"><a href="#常量指针与指针常量" class="headerlink" title="常量指针与指针常量"></a>常量指针与指针常量</h2><p>这里很容易理解，x和p是变量，其中p是指针，指向x，p中存储了内存区域中x所在的地址。<br>那么如果x是一个常量呢？也就是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+<p>那么作为指向一个常量的指针，p的类型也不能再为int*型了，因此我们要对p的声明和初始化做一些更改：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = &amp;x;</span><br></pre></td></tr></table></figure>
+<p>如此我们就得到了本文所讲的==常量指针==（Pointer to Constant)。个人觉得两者的中文翻译很容易让人混淆，反而不如英文更加清晰：Pointer to constant，指向常量的指针，<del>简称常量指针</del>。</p>
+<p>那么这一对金童玉女的另一只——指针常量(Constant Pointer)则显得有些别扭。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p = &amp;x;</span><br></pre></td></tr></table></figure>
+<p>该如何理解呢？<br>先说结论p是一个常量，它无法被改变，同时他是一个指向x的指针，这里p存储的是x的地址，所以说这个地址无法改变，也就是这个指针只能指向x。</p>
+<hr>
+<h2 id="区分"><a href="#区分" class="headerlink" title="区分"></a>区分</h2><p>不得不说，两者的区分实在太过困难，即使你已经懂了，过了一会可能又会忘记，或者混淆。那么我们需要一个能够准确、有效、快速区分他们夫妻俩的办法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = &amp;x;</span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p = &amp;x;</span><br></pre></td></tr></table></figure>
+<p><strong>谁靠前谁先读：</strong> 比如<br>==const== int ==<em>== p 就读做 常量指针<br>int ==</em>== ==const== p就读做指针常量<br><strong>const靠近谁 谁就不能被修改：</strong></p>
+<p>const int* p 中const靠近int，因此修饰的是int型数据x，x不能被改变；<br>int* const p中，const靠近p，因此修饰的是p，p不能被改变。</p>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/26/C-%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-程序猿养成之路：TCP三次握手和四次挥手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
