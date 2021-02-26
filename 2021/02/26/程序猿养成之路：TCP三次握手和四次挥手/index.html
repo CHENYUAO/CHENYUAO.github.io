@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://img-blog.csdn.net/20180717202520531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180717204202563?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="article:published_time" content="2021-02-26T06:49:04.000Z">
-<meta property="article:modified_time" content="2021-02-26T07:44:46.424Z">
+<meta property="article:modified_time" content="2021-02-26T08:31:58.212Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta name="twitter:card" content="summary">
@@ -216,7 +216,7 @@
 </ul>
 <p><img src="https://img-blog.csdn.net/20180717201939345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="TCP报文字段" title="TCP报文字段"></p>
 <p><em>PS：ACK、SYN和FIN这些大写的单词表示标志位，其值要么是1，要么是0；ack、seq小写的单词表示序号。</em></p>
-<p>|字段    |含义|<br>—|:–:|—:<br>|URG    |紧急指针是否有效。为1，表示某一位需要被优先处理<br>|ACK    |确认号是否有效，一般置为1。<br>|PSH    |提示接收端应用程序立即从TCP缓冲区把数据读走。<br>|RST    |对方要求重新建立连接，复位。<br>|SYN    |请求建立连接，并在其序列号的字段进行序列号的初始值设定。建立连接，设置为1<br>|FIN    |    希望断开连接。</p>
+<p>|字段    |含义<br>—|:–:|—:<br>|URG    |紧急指针是否有效。为1，表示某一位需要被优先处理<br>|ACK    |确认号是否有效，一般置为1<br>|PSH    |提示接收端应用程序立即从TCP缓冲区把数据读走<br>|RST    |对方要求重新建立连接，复位<br>|SYN    |请求建立连接，并在其序列号的字段进行序列号的初始值设定。建立连接，设置为1<br>|FIN    |    希望断开连接</p>
 <h4 id="二、三次握手"><a href="#二、三次握手" class="headerlink" title="二、三次握手"></a>二、三次握手</h4><p>建立TCP连接时，需要客户端和服务器共发送3个包。</p>
 <ol>
 <li><p>第一次：客户端发送初始序号x和syn=1请求标志</p>
