@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>程序猿养成之路：TCP三次握手和四次挥手 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 &#x2F;(ㄒoㄒ)&#x2F;~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。 Q&amp;AQ: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？css">
+  <meta name="description" content="前言从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 &#x2F;(ㄒoㄒ)&#x2F;~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。 Q&amp;AQ: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="程序猿养成之路：TCP三次握手和四次挥手">
 <meta property="og:url" content="http://example.com/2021/02/26/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ATCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="前言从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 &#x2F;(ㄒoㄒ)&#x2F;~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。 Q&amp;AQ: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？css">
+<meta property="og:description" content="前言从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 &#x2F;(ㄒoㄒ)&#x2F;~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。 Q&amp;AQ: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img-blog.csdn.net/20180717201939345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180717202520531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180717204202563?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="article:published_time" content="2021-02-26T06:49:04.000Z">
-<meta property="article:modified_time" content="2021-02-26T09:03:44.862Z">
+<meta property="article:modified_time" content="2021-02-26T09:30:37.206Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,9 @@
       
         <hr>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 /(ㄒoㄒ)/~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。</p>
-<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？<br>css<span id="more"></span><br>A：<br><strong>TCP三次握手过程：</strong></p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？</p>
+<span id="more"></span>
+<p>A：<br><strong>TCP三次握手过程：</strong></p>
 <ol>
 <li>客户端向服务器发送SYN和seq序列号（设seq为x）；</li>
 <li>服务器向客户端发送SYN请求连接和连接确认报文（SYN=1,ACK=1），序列号seq为y，确认报文x（ack=x+1）；</li>
