@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>程序猿养成之路：进程与线程 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] Q&amp;AQ：进程与线程有什么区别？">
+  <meta name="description" content="[TOC] 前言操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="程序猿养成之路：进程与线程">
 <meta property="og:url" content="http://example.com/2021/02/28/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="[TOC] Q&amp;AQ：进程与线程有什么区别？">
+<meta property="og:description" content="[TOC] 前言操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://c.biancheng.net/uploads/allimg/181101/2-1Q1011I155434.gif">
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/01/6iDOsO.md.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190426140549553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-02-28T15:05:13.000Z">
-<meta property="article:modified_time" content="2021-03-01T13:15:48.748Z">
+<meta property="article:modified_time" content="2021-03-01T14:39:16.047Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="操作系统">
@@ -194,19 +194,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h4 id="Q：进程与线程有什么区别？"><a href="#Q：进程与线程有什么区别？" class="headerlink" title="Q：进程与线程有什么区别？"></a>Q：进程与线程有什么区别？</h4><span id="more"></span>
-<p>A： </p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。<br>本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。</p>
+<span id="more"></span>
+
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h4 id="Q：进程与线程有什么区别？"><a href="#Q：进程与线程有什么区别？" class="headerlink" title="Q：进程与线程有什么区别？"></a>Q：进程与线程有什么区别？</h4><p>A： </p>
 <ol>
-<li><p>进程是对运行时程序的封装，是系统进行<strong>资源分配</strong>的最小单位，实现了操作系统的并发；<br>线程是进程的子任务，是<strong>CPU调度</strong>的最小单位，实现了进程内部的并发。</p>
-</li>
-<li><p>进程有独立的系统资源，而同一进程内的线程共享<strong>大部分</strong>的系统资源（比如堆、代码段、数据段等）。</p>
-</li>
-<li><p>一个进程崩溃不会对其他进程造成影响，但是一个线程崩溃会导致进程内的其他线程崩溃。</p>
-</li>
-<li><p>进程在创建、切换和销毁时的开销比较大，需要分配/释放系统资源；而线程只需保存和设置少量寄存器的内容，开销较小。</p>
-</li>
-<li><p>进程间的通信较为复杂，而线程由于由于共享代码段和数据段，通信较容易。</p>
-</li>
+<li>进程是对运行时程序的封装，是系统进行<strong>资源分配</strong>的最小单位，实现了操作系统的并发；<br>线程是进程的子任务，是<strong>CPU调度</strong>的最小单位，实现了进程内部的并发。</li>
+<li>进程有独立的系统资源，而同一进程内的线程共享<strong>大部分</strong>的系统资源（比如堆、代码段、数据段等）。</li>
+<li>一个进程崩溃不会对其他进程造成影响，但是一个线程崩溃会导致进程内的其他线程崩溃。</li>
+<li>进程在创建、切换和销毁时的开销比较大，需要分配/释放系统资源；而线程只需保存和设置少量寄存器的内容，开销较小。</li>
+<li>进程间的通信较为复杂，而线程由于由于共享代码段和数据段，通信较容易。</li>
 </ol>
 <h4 id="Q：进程间通信和线程间通信各有哪些方式？"><a href="#Q：进程间通信和线程间通信各有哪些方式？" class="headerlink" title="Q：进程间通信和线程间通信各有哪些方式？"></a>Q：进程间通信和线程间通信各有哪些方式？</h4><p>A：<br>进程间的通信方式:</p>
 <ol>
@@ -219,14 +216,10 @@
 </ol>
 <p>线程间的通信方式：</p>
 <ol>
-<li><p>临界区：通过多线程的串行化来访问公共资源或一段代码，速度快，适合控制数据访问；</p>
-</li>
-<li><p>互斥量Synchronized/Lock：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问</p>
-</li>
-<li><p>信号量Semphare：为控制具有有限数量的用户资源而设计的，它允许多个线程在同一时刻去访问同一个资源，但一般需要限制同一时刻访问此资源的最大线程数目。</p>
-</li>
-<li><p>事件(信号)，Wait/Notify：通过通知操作的方式来保持多线程同步，还可以方便的实现多线程优先级的比较操作</p>
-</li>
+<li>临界区：通过多线程的串行化来访问公共资源或一段代码，速度快，适合控制数据访问；</li>
+<li>互斥量Synchronized/Lock：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问</li>
+<li>信号量Semphare：为控制具有有限数量的用户资源而设计的，它允许多个线程在同一时刻去访问同一个资源，但一般需要限制同一时刻访问此资源的最大线程数目。</li>
+<li>事件(信号)，Wait/Notify：通过通知操作的方式来保持多线程同步，还可以方便的实现多线程优先级的比较操作</li>
 </ol>
 <h4 id="Q-有了线程为什么还需要进程？"><a href="#Q-有了线程为什么还需要进程？" class="headerlink" title="Q: 有了线程为什么还需要进程？"></a>Q: 有了线程为什么还需要进程？</h4><p>A： 进程可以使多个程序并发执行，但是进程（程序）自身在一个时间只能做一件事情，比如while循环等待的时候无法做别的事情，因此操作系用引入粒度更小的线程作为调度的基本单位。<br>此外，线程的通信机制比进程方便很多，线程的切换效率也远远高于进程，因此引入线程可以减少系统开销，提高操作系统的工作效率。</p>
 <hr>
