@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>程序猿养成之路：进程与线程 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 前言操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。">
+  <meta name="description" content="前言操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="程序猿养成之路：进程与线程">
 <meta property="og:url" content="http://example.com/2021/02/28/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="[TOC] 前言操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。">
+<meta property="og:description" content="前言操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://c.biancheng.net/uploads/allimg/181101/2-1Q1011I155434.gif">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/Aryfbt.png">
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/01/6iDOsO.md.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190426140549553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-02-28T15:05:13.000Z">
-<meta property="article:modified_time" content="2021-03-02T02:33:18.513Z">
+<meta property="article:modified_time" content="2021-03-03T09:02:31.057Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://c.biancheng.net/uploads/allimg/181101/2-1Q1011I155434.gif">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/31/Aryfbt.png">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
   
@@ -72,7 +72,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数5
+			总文章数6
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -193,8 +193,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。<br>本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。<br>本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。</p>
 <span id="more"></span>
 
 <h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h4 id="Q：进程与线程有什么区别？"><a href="#Q：进程与线程有什么区别？" class="headerlink" title="Q：进程与线程有什么区别？"></a>Q：进程与线程有什么区别？</h4><p>A： </p>
@@ -235,7 +234,7 @@
 <li><strong>创建态</strong>——进程正在被创建</li>
 <li><strong>终止态</strong>——进程正在被撤销</li>
 </ol>
-<p><strong>进程状态的转换</strong><br><img src="http://c.biancheng.net/uploads/allimg/181101/2-1Q1011I155434.gif"></p>
+<p><strong>进程状态的转换</strong><br><img src="https://s2.ax1x.com/2019/03/31/Aryfbt.png"></p>
 <p>引起进程状态转换的具体原因如下：<br>​</p>
 <ul>
 <li>NULL→新建态：执行一个程序，创建一个子进程。</li>
@@ -430,6 +429,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/03/02/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          程序猿养成之路：十大排序算法
+        
+      </div>
+    </a>
   
   
     <a href="/2021/02/26/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">

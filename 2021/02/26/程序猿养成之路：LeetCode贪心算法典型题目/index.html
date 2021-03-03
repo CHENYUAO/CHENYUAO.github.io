@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>程序猿养成之路：LeetCode贪心算法典型题目 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 前言本篇文章是阅读了高畅《LeetCode 101：和你一起你轻松刷题（C++）》之后所总结归纳的，亦借鉴了原作者的解析。">
+  <meta name="description" content="前言本篇文章是阅读了高畅《LeetCode 101：和你一起你轻松刷题（C++）》之后所总结归纳的，亦借鉴了原作者的解析。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="程序猿养成之路：LeetCode贪心算法典型题目">
 <meta property="og:url" content="http://example.com/2021/02/26/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="[TOC] 前言本篇文章是阅读了高畅《LeetCode 101：和你一起你轻松刷题（C++）》之后所总结归纳的，亦借鉴了原作者的解析。">
+<meta property="og:description" content="前言本篇文章是阅读了高畅《LeetCode 101：和你一起你轻松刷题（C++）》之后所总结归纳的，亦借鉴了原作者的解析。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-26T14:03:55.000Z">
-<meta property="article:modified_time" content="2021-03-02T02:33:30.405Z">
+<meta property="article:modified_time" content="2021-03-02T07:50:19.993Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="算法">
@@ -68,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数5
+			总文章数6
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -189,8 +189,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章是阅读了高畅《LeetCode 101：和你一起你轻松刷题（C++）》之后所总结归纳的，亦借鉴了原作者的解析。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章是阅读了高畅《LeetCode 101：和你一起你轻松刷题（C++）》之后所总结归纳的，亦借鉴了原作者的解析。</p>
 <span id="more"></span>
 <hr>
 <h2 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h2><p>顾名思义，贪心算法或贪心思想采用贪心的策略，保证每次操作都是局部最优的，从而使最后得到的结果是全局最优的。<br>举一个最简单的例子：小明和小王喜欢吃苹果，小明可以吃五个，小王可以吃三个。已知苹果园里有吃不完的苹果，求小明和小王一共最多吃多少个苹果。在这个例子中，我们可以选用的贪心策略为，每个人吃自己能吃的最多数量的苹果，这在每个人身上都是局部最优的。又因为全局结果是局部结果的简单求和，且局部结果互不相干，因此局部最优的策略也同样是全局最优的策略。</p>
