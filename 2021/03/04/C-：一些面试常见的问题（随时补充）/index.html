@@ -6,25 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>程序猿养成之路：TCP三次握手和四次挥手 | Joe Chen的杂货铺</title>
+  <title>C++：一些面试常见的问题（随时补充） | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 &#x2F;(ㄒoㄒ)&#x2F;~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。 Q&amp;AQ: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？">
+  <meta name="description" content="Q: 说一下static关键字的作用A:   全局静态变量在全局变量前加上关键字static，全局变量就定义成一个全局静态变量.   内存中的位置：静态存储区； 作用时间：在整个程序运行期间一直存在； 初始化：未经初始化的全局静态变量会被自动初始化为0（自动对象的值是任意的，除非他被显式初始化）； 作用域：全局静态变量在声明他的文件之外是不可见的，准确地说是从定义之处开始，到文件结尾。    局部">
 <meta property="og:type" content="article">
-<meta property="og:title" content="程序猿养成之路：TCP三次握手和四次挥手">
-<meta property="og:url" content="http://example.com/2021/02/26/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ATCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/index.html">
+<meta property="og:title" content="C++：一些面试常见的问题（随时补充）">
+<meta property="og:url" content="http://example.com/2021/03/04/C-%EF%BC%9A%E4%B8%80%E4%BA%9B%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E9%9A%8F%E6%97%B6%E8%A1%A5%E5%85%85%EF%BC%89/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="前言从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 &#x2F;(ㄒoㄒ)&#x2F;~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。 Q&amp;AQ: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？">
+<meta property="og:description" content="Q: 说一下static关键字的作用A:   全局静态变量在全局变量前加上关键字static，全局变量就定义成一个全局静态变量.   内存中的位置：静态存储区； 作用时间：在整个程序运行期间一直存在； 初始化：未经初始化的全局静态变量会被自动初始化为0（自动对象的值是任意的，除非他被显式初始化）； 作用域：全局静态变量在声明他的文件之外是不可见的，准确地说是从定义之处开始，到文件结尾。    局部">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20180717201939345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180717202520531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:image" content="https://img-blog.csdn.net/20180717204202563?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="article:published_time" content="2021-02-26T06:49:04.000Z">
-<meta property="article:modified_time" content="2021-03-02T02:33:23.321Z">
+<meta property="article:published_time" content="2021-03-04T03:22:02.000Z">
+<meta property="article:modified_time" content="2021-03-04T03:54:38.489Z">
 <meta property="article:author" content="Joe Chen">
-<meta property="article:tag" content="程序猿养成之路">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20180717201939345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
   
@@ -173,114 +168,86 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-程序猿养成之路：TCP三次握手和四次挥手" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C-：一些面试常见的问题（随时补充）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      程序猿养成之路：TCP三次握手和四次挥手
+      C++：一些面试常见的问题（随时补充）
     </h1>
   
 
         
-        <a href="/2021/02/26/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ATCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" class="archive-article-date">
-  	<time datetime="2021-02-26T06:49:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-26</time>
+        <a href="/2021/03/04/C-%EF%BC%9A%E4%B8%80%E4%BA%9B%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E9%9A%8F%E6%97%B6%E8%A1%A5%E5%85%85%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2021-03-04T03:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>从今天开始，小陈开始更新《程序猿养成之路》系列博客，主要是为了准备最近的实习面试和即将到来的秋招面试 /(ㄒoㄒ)/~~。内容主要就是程序员面试八股文——数据结构与算法、操作系统、计算机网络相关知识。</p>
-<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q: 请你说一下TCP三次握手和四次挥手的过程？两次握手行不行？为什么不用四次？</p>
-<span id="more"></span>
-<p>A：<br><strong>TCP三次握手过程：</strong></p>
+        <p><strong>Q: 说一下static关键字的作用</strong><br>A: </p>
 <ol>
-<li>客户端向服务器发送SYN和seq序列号（设seq为x）；</li>
-<li>服务器向客户端发送SYN请求连接和连接确认报文（SYN=1,ACK=1），序列号seq为y，确认报文x（ack=x+1）；</li>
-<li>客户端向服务端发送ACK确认报文，序列号为x+1，确认报文y（ack=y+1）。</li>
+<li>全局静态变量<br>在全局变量前加上关键字static，全局变量就定义成一个全局静态变量.</li>
 </ol>
-<p><strong>TCP四次挥手过程：</strong></p>
-<ol>
-<li>客户端发出断开请求FIN，seq=u；</li>
-<li>服务器确认客户端的断开请求ACK,ack=u+1，seq=v；</li>
-<li>服务器端请求断开FIN，ACK，seq=w，ack=u+1；</li>
-<li>客户端确认断开ACK，seq=u+1，ack=w+1；</li>
-</ol>
-<p><strong>两次握手和四次握手为什么不可以？</strong><br>TCP是全双工通信，两次握手（一来一回）只能保证单向数据链路是畅通的，但是不能保证方向链路也畅通；<br>因此，为了保证双向链路畅通，需要进行2*2=4次握手，但是服务器的确认和请求可以合并为一步，因此只需要三次握手；<br>而在断开连接时，第2步服务器确认客户端的断开请求之后，客户端-&gt;服务器的单向链路就中断了，但是服务器-&gt;客户端的链路可能还有数据要发送，所以在挥手时，第2、3步不可以合并，也就成了“四次挥手”。</p>
-<h2 id="TCP三次握手与四次挥手"><a href="#TCP三次握手与四次挥手" class="headerlink" title="TCP三次握手与四次挥手"></a>TCP三次握手与四次挥手</h2><p>计算机网络必学知识，期末考试以及工作面试八股文之首——TCP的三次握手和四次挥手的全过程。</p>
-<h4 id="一、TCP报文格式"><a href="#一、TCP报文格式" class="headerlink" title="一、TCP报文格式"></a>一、TCP报文格式</h4><p>TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port…）</p>
-<p>报文主要段：</p>
 <ul>
-<li><p><strong>序列号seq</strong>：表示发送的数据字节流，确保TCP传输有序，对每个字节编号</p>
-</li>
-<li><p><strong>确认序号ack</strong>：发送方期待接收的下一序列号，接收成功后的数据字节序列号加 1。只有ACK=1时才有效。</p>
-</li>
-<li><p><strong>确认ACK</strong>：确认序号的标志，ACK=1表示确认号有效，ACK=0表示报文不含确认序号信息</p>
-</li>
-<li><p><strong>同步SYN</strong>：连接请求序号标志，用于建立连接，SYN=1表示请求连接</p>
-</li>
-<li><p><strong>终止FIN</strong>：结束标志，用于释放连接，为1表示关闭本方数据流</p>
-</li>
+<li>内存中的位置：静态存储区；</li>
+<li>作用时间：在整个程序运行期间一直存在；</li>
+<li>初始化：未经初始化的全局静态变量会被自动初始化为0（自动对象的值是任意的，除非他被显式初始化）；</li>
+<li>作用域：全局静态变量在声明他的文件之外是不可见的，准确地说是从定义之处开始，到文件结尾。</li>
 </ul>
-<p><img src="https://img-blog.csdn.net/20180717201939345?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="TCP报文字段" title="TCP报文字段"></p>
-<p><em>PS：ACK、SYN和FIN这些大写的单词表示标志位，其值要么是1，要么是0；ack、seq小写的单词表示序号。</em></p>
-<table>
-<thead>
-<tr>
-<th align="center">字段</th>
-<th align="left">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">URG</td>
-<td align="left">紧急指针是否有效。为1，表示某一位需要被优先处理</td>
-</tr>
-<tr>
-<td align="center">ACK</td>
-<td align="left">确认号是否有效，一般置为1</td>
-</tr>
-<tr>
-<td align="center">PSH</td>
-<td align="left">提示接收端应用程序立即从TCP缓冲区把数据读走</td>
-</tr>
-<tr>
-<td align="center">RST</td>
-<td align="left">对方要求重新建立连接，复位</td>
-</tr>
-<tr>
-<td align="center">SYN</td>
-<td align="left">请求建立连接，并在其序列号的字段进行序列号的初始值设定。建立连接，设置为1</td>
-</tr>
-<tr>
-<td align="center">FIN</td>
-<td align="left">希望断开连接</td>
-</tr>
-</tbody></table>
-<h4 id="二、三次握手"><a href="#二、三次握手" class="headerlink" title="二、三次握手"></a>二、三次握手</h4><p>建立TCP连接时，需要客户端和服务器共发送3个包。</p>
+<ol start="2">
+<li> 局部静态变量<br>在局部变量之前加上关键字static，局部变量就成为一个局部静态变量。</li>
+</ol>
+<ul>
+<li>内存中的位置：静态存储区</li>
+<li>初始化：未经初始化的全局静态变量会被自动初始化为0（自动对象的值是任意的，除非他被显式初始化）；</li>
+<li>作用域：作用域仍为局部作用域，当定义它的函数或者语句块结束的时候，作用域结束。但是当局部静态变量离开作用域后，并没有销毁，而是仍然驻留在内存当中，只不过我们不能再对它进行访问，直到该函数再次被调用，并且值不变；</li>
+</ul>
+<ol start="3">
+<li><p>静态函数<br>在函数返回类型前加static，函数就定义为静态函数。函数的定义和声明在默认情况下都是extern的，但静态函数只是在声明他的文件当中可见，不能被其他文件所用。<br>函数的实现使用static修饰，那么这个函数只可在本cpp内使用，不会同其他cpp中的同名函数引起冲突；<br>warning：不要在头文件中声明static的全局函数，不要在cpp内声明非static的全局函数，如果你要在多个cpp中复用该函数，就把它的声明提到头文件里去，否则cpp内部声明需加上static修饰；</p>
+</li>
+<li><p>类的静态成员<br>在类中，静态成员可以实现多个对象之间的数据共享，并且使用静态数据成员还不会破坏隐藏的原则，即保证了安全性。因此，静态成员是类的所有对象中共享的成员，而不是某个对象的成员。对多个对象来说，静态数据成员只存储一处，供所有对象共用</p>
+</li>
+<li><p>类的静态函数<br>静态成员函数和静态数据成员一样，它们都属于类的静态成员，它们都不是对象成员。因此，对静态成员的引用不需要用对象名。<br>在静态成员函数的实现中不能直接引用类中说明的非静态成员，可以引用类中说明的静态成员（这点非常重要）。如果静态成员函数中要引用非静态成员时，可通过对象来引用。从中可看出，调用静态成员函数使用如下格式：&lt;类名&gt;::&lt;静态成员函数名&gt;(&lt;参数表&gt;);</p>
+</li>
+</ol>
+<p><strong>Q: 说一说c++中四种cast转换</strong><br>A：<br>C++中四种类型转换是：static_cast, dynamic_cast, const_cast, reinterpret_cast</p>
 <ol>
-<li><p>第一次：客户端发送初始序号x和syn=1请求标志</p>
+<li><p>const_cast<br>用于将const变量转为非const</p>
 </li>
-<li><p>第二次：服务器发送请求标志syn，发送确认标志ACK，发送自己的序号seq=y，发送客户端的确认序号ack=x+1</p>
+<li><p>static_cast<br>静态类型转换，运行时不做类型检查来保证安全性， static_cast能用于多态向上转化，如果向下转能成功但是不安全，结果未知；</p>
 </li>
-<li><p>第三次：客户端发送ACK确认号，发送自己的序号seq=x+1，发送对方的确认号ack=y+1</p>
+<li><p>dynamic_cast<br>用于动态类型转换，运行时检查类型安全（转换失败返回null）。只能用于含有虚函数的类，用于类层次间的向上和向下转化。只能转指针或引用。向下转化时，如果是非法的对于指针返回NULL，对于引用抛异常。要深入了解内部转换的原理。<br>向上转换：指的是子类向基类的转换<br>向下转换：指的是基类向子类的转换<br>它通过判断在执行到该语句的时候变量的运行时类型和要转换的类型是否相同来判断是否能够进行向下转换。</p>
 </li>
-</ol>
-<p><img src="https://img-blog.csdn.net/20180717202520531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="三次握手" title="TCP三次握手"></p>
-<h4 id="三、四次挥手"><a href="#三、四次挥手" class="headerlink" title="三、四次挥手"></a>三、四次挥手</h4><ol>
-<li><p>第一次挥手：客户端发出释放FIN=1，自己序列号seq=u，进入FIN-WAIT-1状态</p>
+<li><p>reinterpret_cast<br>几乎什么都可以转，比如将int转指针，可能会出问题，尽量少用；</p>
 </li>
-<li><p>第二次挥手：服务器收到客户端的后，发出ACK=1确认标志和客户端的确认号ack=u+1，自己的序列号seq=v，进入CLOSE-WAIT状态</p>
-</li>
-<li><p>第三次挥手：客户端收到服务器确认结果后，进入FIN-WAIT-2状态。此时服务器发送释放FIN=1信号，确认标志ACK=1，确认序号ack=u+1，自己序号seq=w，服务器进入LAST-ACK（最后确认态）</p>
-</li>
-<li><p>第四次挥手：客户端收到回复后，发送确认ACK=1，ack=w+1，自己的seq=u+1，客户端进入TIME-WAIT（时间等待）。客户端经过2个最长报文段寿命后，客户端CLOSE；服务器收到确认后，立刻进入CLOSE状态。</p>
+<li><p>为什么不使用C的强制转换？<br>C的强制转换表面上看起来功能强大什么都能转，但是转化不够明确，不能进行错误检查，容易出错。</p>
 </li>
 </ol>
-<p><img src="https://img-blog.csdn.net/20180717204202563?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="四次挥手" title="四次挥手"></p>
+<p><strong>Q： 请你说一下你理解的c++中的smart pointer四个智能指针： shared_ptr,unique_ptr,weak_ptr,auto_ptr</strong><br>A:</p>
+<ol>
+<li><p>auto_ptr（c++98的方案，cpp11已经抛弃）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">auto_ptr</span>&lt; <span class="built_in">string</span>&gt; <span class="title">p1</span> <span class="params">(<span class="keyword">new</span> <span class="built_in">string</span> (<span class="string">&quot;I reigned lonely as a cloud.&quot;</span>))</span></span>;</span><br><span class="line"><span class="built_in">auto_ptr</span>&lt;<span class="built_in">string</span>&gt; p2;</span><br><span class="line">p2 = p1; <span class="comment">//auto_ptr不会报错.</span></span><br></pre></td></tr></table></figure>
+<p>此时不会报错，p2剥夺了p1的所有权，但是当程序运行时访问p1将会报错。所以auto_ptr的缺点是：存在潜在的内存崩溃问题！</p>
+</li>
+<li><p>unique_ptr（替换auto_ptr）<br>unique_ptr实现独占式拥有或严格拥有概念，保证同一时间内只有一个智能指针可以指向该对象。它对于避免资源泄露(例如“以new创建对象后因为发生异常而忘记调用delete”)特别有用。<br>采用所有权模式，还是上面那个例子</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; <span class="title">p3</span> <span class="params">(<span class="keyword">new</span> <span class="built_in">string</span> (<span class="string">&quot;auto&quot;</span>))</span></span>;   <span class="comment">//#4</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; p4；                       <span class="comment">//#5</span></span><br><span class="line">p4 = p3;<span class="comment">//此时会报错！！</span></span><br></pre></td></tr></table></figure>
+<p>编译器认为p4=p3非法，避免了p3不再指向有效数据的问题。因此，unique_ptr比auto_ptr更安全。<br>另外unique_ptr还有更聪明的地方：当程序试图将一个 unique_ptr 赋值给另一个时，如果源 unique_ptr 是个临时右值，编译器允许这么做；如果源 unique_ptr 将存在一段时间，编译器将禁止这么做，比如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; <span class="title">pu1</span><span class="params">(<span class="keyword">new</span> <span class="built_in">string</span> (<span class="string">&quot;hello world&quot;</span>))</span></span>;</span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; pu2;</span><br><span class="line">pu2 = pu1;                                      <span class="comment">// #1 not allowed</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; pu3;</span><br><span class="line">pu3 = <span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt;(<span class="keyword">new</span> <span class="built_in">string</span> (<span class="string">&quot;You&quot;</span>));   <span class="comment">// #2 allowed</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>其中#1留下悬挂的unique_ptr(pu1)，这可能导致危害。而#2不会留下悬挂的unique_ptr，因为它调用 unique_ptr 的构造函数，该构造函数创建的临时对象在其所有权让给 pu3 后就会被销毁。这种随情况而已的行为表明，unique_ptr 优于允许两种赋值的auto_ptr 。</p>
+<p>注：如果确实想执行类似与#1的操作，要安全的重用这种指针，可给它赋新值。C++有一个标准库函数std::move()，让你能够将一个unique_ptr赋给另一个。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; ps1, ps2;</span><br><span class="line">ps1 = demo(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">ps2 = move(ps1);</span><br><span class="line">ps1 = demo(<span class="string">&quot;alexia&quot;</span>);</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *ps2 &lt;&lt; *ps1 &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>shared_ptr<br>shared_ptr实现共享式拥有概念。多个智能指针可以指向相同对象，该对象和其相关资源会在“最后一个引用被销毁”时候释放。从名字share就可以看出了资源可以被多个指针共享，它使用计数机制来表明资源被几个指针共享。可以通过成员函数use_count()来查看资源的所有者个数。除了可以通过new来构造，还可以通过传入auto_ptr, unique_ptr,weak_ptr来构造。当我们调用release()时，当前指针会释放资源所有权，计数减一。当计数等于0时，资源会被释放。<br>shared_ptr 是为了解决 auto_ptr 在对象所有权上的局限性(auto_ptr 是独占的), 在使用引用计数的机制上提供了可以共享所有权的智能指针。</p>
+</li>
+<li><p>weak_ptr<br>weak_ptr 是一种不控制对象生命周期的智能指针, 它指向一个shared_ptr管理的对象. 进行该对象的内存管理的是那个强引用的shared_ptr. weak_ptr只是提供了对管理对象的一个访问手段。weak_ptr设计的目的是为配合shared_ptr而引入的一种智能指针来协助shared_ptr工作, 它只可以从一个shared_ptr或另一个weak_ptr对象构造, 它的构造和析构不会引起引用记数的增加或减少。weak_ptr是用来解决shared_ptr相互引用时的死锁问题,如果说两个shared_ptr相互引用,那么这两个指针的引用计数永远不可能下降为0,资源永远不会释放。它是对对象的一种弱引用，不会增加对象的引用计数，和shared_ptr之间可以相互转化，shared_ptr可以直接赋值给它，它可以通过调用lock函数来获得shared_ptr。</p>
+</li>
+</ol>
 
       
 
@@ -315,11 +282,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机网络</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -375,7 +338,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/26/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ATCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/04/C-%EF%BC%9A%E4%B8%80%E4%BA%9B%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E9%9A%8F%E6%97%B6%E8%A1%A5%E5%85%85%EF%BC%89/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -389,18 +352,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/26/C-%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          C++指针常量与常量指针
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/02/25/C-%E5%85%B3%E4%BA%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%80%E7%82%B9%E5%B0%8F%E6%80%9D%E8%80%83/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">C++关于构造函数的一点小思考</div>
+    <a href="/2021/03/02/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">程序猿养成之路：十大排序算法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -427,7 +381,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">2.</span> <span class="toc-text">Q&amp;A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="toc-number">3.</span> <span class="toc-text">TCP三次握手与四次挥手</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81TCP%E6%8A%A5%E6%96%87%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.0.1.</span> <span class="toc-text">一、TCP报文格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-number">3.0.2.</span> <span class="toc-text">二、三次握手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="toc-number">3.0.3.</span> <span class="toc-text">三、四次挥手</span></a></li></ol></li></ol></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
