@@ -193,7 +193,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。<br>本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。<br><span id="more"></span></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>操作系统中被问的最多的一个问题，这个问题起源于多道程序设计。多道程序设计技术是操作系统最早引入的技术，它的设计思想是允多个程序同时进入内存并运行，其目的是为了CPU的利用率，进而提高系统效率。<br>本文主要阐述进程和线程的相关理论，粗略概括一二，更详细的解释可以参考操作系统的基本经典书籍。</p>
+<span id="more"></span>
+
 <h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h4 id="Q：进程与线程有什么区别？"><a href="#Q：进程与线程有什么区别？" class="headerlink" title="Q：进程与线程有什么区别？"></a>Q：进程与线程有什么区别？</h4><p>A： </p>
 <ol>
 <li>进程是对运行时程序的封装，是系统进行<strong>资源分配</strong>的最小单位，实现了操作系统的并发；<br>线程是进程的子任务，是<strong>CPU调度</strong>的最小单位，实现了进程内部的并发。</li>
@@ -232,7 +234,7 @@
 <li><strong>创建态</strong>——进程正在被创建</li>
 <li><strong>终止态</strong>——进程正在被撤销</li>
 </ol>
-<p><strong>进程状态的转换</strong><br><img src="https://s2.ax1x.com/2019/03/31/Aryfbt.png" alt=""></p>
+<p><strong>进程状态的转换</strong><br><img src="https://s2.ax1x.com/2019/03/31/Aryfbt.png"></p>
 <p>引起进程状态转换的具体原因如下：<br>​</p>
 <ul>
 <li>NULL→新建态：执行一个程序，创建一个子进程。</li>
@@ -258,20 +260,20 @@
 </ol>
 <ul>
 <li>共享存储允许两个或多个进程共享一个给定的存储区。</li>
-<li>对存储区的访问要互斥进行<br><img src="https://s3.ax1x.com/2021/03/01/6iDOsO.md.png" alt=""></li>
+<li>对存储区的访问要互斥进行<br><img src="https://s3.ax1x.com/2021/03/01/6iDOsO.md.png"></li>
 </ul>
-<ol>
+<ol start="2">
 <li>消息传递</li>
 </ol>
 <ul>
 <li>使用“发送消息/接收消息”两个原语来交换格式化的消息</li>
 </ul>
-<ol>
+<ol start="3">
 <li>管道通信<br>管道——在内存中开辟的大小固定的缓存区</li>
 </ol>
 <ul>
 <li>管道只能实现半双工通信。</li>
-<li>各进程要互斥地访问管道<br><img src="https://img-blog.csdnimg.cn/20190426140549553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70" alt=""></li>
+<li>各进程要互斥地访问管道<br><img src="https://img-blog.csdnimg.cn/20190426140549553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW9ob25nX2Jv,size_16,color_FFFFFF,t_70"></li>
 </ul>
 <h4 id="进程同步-amp-进程互斥"><a href="#进程同步-amp-进程互斥" class="headerlink" title="进程同步&amp;进程互斥"></a>进程同步&amp;进程互斥</h4><p><strong>进程同步</strong><br>进程具有异步性的特征，各并发的进程以独立的、不可预知的速度向前推进。<br>进程同步解决的是这种异步关系，即协调各个进程间的工作次序。</p>
 <p><strong>进程互斥</strong><br>系统的某些资源同一个时间段只允许一个进程访问该资源。当某一个进程访问该资源的时候，另一个进程要想访问资源则必须等待。</p>
@@ -290,9 +292,14 @@
 <p>在引入多线程模型后，进程和线程在程序执行过程中的分工就相当明确了，进程负责分配和管理系统资源，线程负责CPU调度运算，也是CPU切换时间片的最小单位。对于任何一个进程来讲，即便我们没有主动去创建线程，进程也是默认有一个主线程的。</p>
 <hr>
 <h2 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h2><h4 id="什么是信号量？"><a href="#什么是信号量？" class="headerlink" title="什么是信号量？"></a>什么是信号量？</h4><p>信号量是Dijkstra在1965年提出的一种方法，它使用一个整型变量来累计唤醒次数。用户可以通过操作系统提供的一对原语来对信号量进行操作：wait/P和signal/V。</p>
-<p>具体方法：<br>用一个整数型的变量作为信号量，用来表示系统中某种资源的数量。<br>Eg：某计算机系统中有一台打印机：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> S = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">int</span> S)</span></span>&#123;       <span class="comment">//wait/P原语</span></span><br><span class="line">    <span class="keyword">while</span>(S &lt;= <span class="number">0</span>);      <span class="comment">//如果资源不够，就一直循环等待</span></span><br><span class="line">    S = S - <span class="number">1</span>;          <span class="comment">//如果资源足够，就占用一个资源</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">signal</span><span class="params">(<span class="keyword">int</span> S)</span></span>&#123;     <span class="comment">//signal/V原语</span></span><br><span class="line">    S = S + <span class="number">1</span>;          <span class="comment">//使用完资源后，释放资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体方法：<br>用一个整数型的变量作为信号量，用来表示系统中某种资源的数量。<br>Eg：某计算机系统中有一台打印机：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> S = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">int</span> S)</span></span>&#123;       <span class="comment">//wait/P原语</span></span><br><span class="line">    <span class="keyword">while</span>(S &lt;= <span class="number">0</span>);      <span class="comment">//如果资源不够，就一直循环等待</span></span><br><span class="line">    S = S - <span class="number">1</span>;          <span class="comment">//如果资源足够，就占用一个资源</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">signal</span><span class="params">(<span class="keyword">int</span> S)</span></span>&#123;     <span class="comment">//signal/V原语</span></span><br><span class="line">    S = S + <span class="number">1</span>;          <span class="comment">//使用完资源后，释放资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//进程P0：              进程P1：                 进程P2：</span></span><br><span class="line">···                     ···                     ···</span><br><span class="line">wait(S);                wait(S);                wait(S);            ···</span><br><span class="line"><span class="comment">//使用打印机资源         //使用打印机资源         //使用打印机资源</span></span><br><span class="line">signal(S);              signal(S);              signal(S);</span><br></pre></td></tr></table></figure>
-<h4 id="使用信号量机制实现同步、互斥"><a href="#使用信号量机制实现同步、互斥" class="headerlink" title="使用信号量机制实现同步、互斥"></a>使用信号量机制实现同步、互斥</h4><p><strong>信号量实现进程互斥</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*信号量实现进程互斥*/</span></span><br><span class="line">semphore mutex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">P1()&#123;</span><br><span class="line">    ···</span><br><span class="line">    P(mutex);</span><br><span class="line">    <span class="comment">//临界区代码段</span></span><br><span class="line">    V(mutex);</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P2()&#123;</span><br><span class="line">    ···</span><br><span class="line">    P(mutex);</span><br><span class="line">    <span class="comment">//临界区代码段</span></span><br><span class="line">    V(mutex);</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+<h4 id="使用信号量机制实现同步、互斥"><a href="#使用信号量机制实现同步、互斥" class="headerlink" title="使用信号量机制实现同步、互斥"></a>使用信号量机制实现同步、互斥</h4><p><strong>信号量实现进程互斥</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*信号量实现进程互斥*/</span></span><br><span class="line">semphore mutex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">P1()&#123;</span><br><span class="line">    ···</span><br><span class="line">    P(mutex);</span><br><span class="line">    <span class="comment">//临界区代码段</span></span><br><span class="line">    V(mutex);</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P2()&#123;</span><br><span class="line">    ···</span><br><span class="line">    P(mutex);</span><br><span class="line">    <span class="comment">//临界区代码段</span></span><br><span class="line">    V(mutex);</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>实现步骤：</p>
 <ol>
 <li>分析并发进程的关键活动，划分临界区</li>
@@ -300,10 +307,13 @@
 <li>在临界区前执行P(mutex)</li>
 <li>在临界区后执行V(mutex)</li>
 </ol>
-<p><strong>信号量实现进程同步</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">P1()&#123;</span><br><span class="line">    code <span class="number">1</span>;</span><br><span class="line">    code <span class="number">2</span>;</span><br><span class="line">    code <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P2()&#123;</span><br><span class="line">    code <span class="number">4</span>;</span><br><span class="line">    code <span class="number">5</span>;</span><br><span class="line">    code <span class="number">6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>信号量实现进程同步</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">P1()&#123;</span><br><span class="line">    code <span class="number">1</span>;</span><br><span class="line">    code <span class="number">2</span>;</span><br><span class="line">    code <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P2()&#123;</span><br><span class="line">    code <span class="number">4</span>;</span><br><span class="line">    code <span class="number">5</span>;</span><br><span class="line">    code <span class="number">6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>上述代码P1和P2并发执行，存在异步性，因此二者交替推进的次序是不确定的。</p>
 <p>若想使P2的<code>code 4</code>在P1的<code>code 1</code>和<code>code 2</code>之后，那么就要保证<code>code 4</code>是在<code>code 2</code>之后才会执行。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*用信号量机制实现进程同步*/</span></span><br><span class="line">semphore S = <span class="number">0</span>;</span><br><span class="line">P1()&#123;</span><br><span class="line">    code <span class="number">1</span>;</span><br><span class="line">    code <span class="number">2</span>;</span><br><span class="line">    V(S);</span><br><span class="line">    code <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P2()&#123;</span><br><span class="line">    P(S);</span><br><span class="line">    code <span class="number">4</span>;</span><br><span class="line">    code <span class="number">5</span>;</span><br><span class="line">    code <span class="number">6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>实现步骤：</p>
 <ol>
 <li>分析什么地方需要同步关系</li>
@@ -578,11 +588,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
