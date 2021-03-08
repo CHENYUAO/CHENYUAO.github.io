@@ -15,12 +15,14 @@
 <meta property="og:site_name" content="Joe Chen的杂货铺">
 <meta property="og:description" content="算法解释双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。也可以延伸到多个数组的多个指针。 若两个指针指向同一数组，遍历方向相同且不会相交，则也称为滑动窗口（两个指针包围的区域即为当前的窗口），经常用于区间搜索。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center">
 <meta property="article:published_time" content="2021-03-06T10:36:09.000Z">
-<meta property="article:modified_time" content="2021-03-07T04:57:16.549Z">
+<meta property="article:modified_time" content="2021-03-08T04:53:23.158Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
   
@@ -68,7 +70,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数8
+			总文章数9
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -205,11 +207,11 @@
 <p>Return the indices of the two numbers (1-indexed) as an integer array answer of size 2, where 1 &lt;= answer[0] &lt; answer[1] &lt;= numbers.length.</p>
 <p>You may assume that each input would have exactly one solution and you may not use the same element twice.</p>
 <p><strong>Example 1:</strong></p>
-<p><strong>Input:</strong> numbers = [2,7,11,15], target = 9<br><strong>Output:</strong> [1,2]<br>**Explanation: **The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.</p>
+<p><strong>Input:</strong>  numbers = [2,7,11,15], target = 9<br><strong>Output:</strong>  [1,2]<br>**Explanation: **  The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.</p>
 <p><strong>Example 2:</strong></p>
-<p><strong>Input:</strong> numbers = [2,3,4], target = 6<br><strong>Output:</strong> [1,3]</p>
+<p><strong>Input:</strong>   numbers = [2,3,4], target = 6<br><strong>Output:</strong>  [1,3]</p>
 <p><strong>Example 3:</strong></p>
-<p>**Input: **numbers = [-1,0], target = -1<br>**Output: **[1,2]</p>
+<p>**Input: **  numbers = [-1,0], target = -1<br>**Output: **  [1,2]</p>
 <p><strong>Constraints:</strong></p>
 <p>2 &lt;= numbers.length &lt;= 3 * 104<br>-1000 &lt;= numbers[i] &lt;= 1000<br>numbers is sorted in increasing order.<br>-1000 &lt;= target &lt;= 1000<br>Only one valid answer exists.</p>
 </blockquote>
@@ -229,9 +231,9 @@
 <p>Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.</p>
 <p>The number of elements initialized in nums1 and nums2 are m and n respectively. You may assume that nums1 has a size equal to m + n such that it has enough space to hold additional elements from nums2.</p>
 <p><strong>Example 1:</strong></p>
-<p><strong>Input:</strong> nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3<br>**Output: **[1,2,2,3,5,6]</p>
+<p><strong>Input:</strong>  nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3<br>**Output: ** [1,2,2,3,5,6]</p>
 <p><strong>Example 2:</strong></p>
-<p><strong>Input:</strong> nums1 = [1], m = 1, nums2 = [], n = 0<br><strong>Output:</strong> [1]</p>
+<p>**Input: ** nums1 = [1], m = 1, nums2 = [], n = 0<br><strong>Output:</strong>  [1]</p>
 <p><strong>Constraints:</strong></p>
 <ul>
 <li>nums1.length == m + n</li>
@@ -251,7 +253,45 @@
 
 
 
-<h4 id="LeetCode-NO-142"><a href="#LeetCode-NO-142" class="headerlink" title="LeetCode NO.142"></a>LeetCode NO.142</h4>
+<h4 id="LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM"><a href="#LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM" class="headerlink" title="LeetCode NO.142     Linked List Cycle II(MEDIUM)"></a>LeetCode NO.142     <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">Linked List Cycle II</a>(MEDIUM)</h4><p><strong>题目描述</strong></p>
+<blockquote>
+<p>Given a linked list, return the node where the cycle begins. If there is no cycle, return null.</p>
+<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail’s next pointer is connected to. Note that pos is not passed as a parameter.</p>
+<p>Notice that you should not modify the linked list.</p>
+<p><strong>Example 1:</strong></p>
+<p>Input: head = [3,2,0,-4], pos = 1<br>Output: tail connects to node index 1<br>Explanation: There is a cycle in the linked list, where tail connects to the second node.</p>
+<p><strong>Example 2:</strong></p>
+<p>Input: head = [1,2], pos = 0<br>Output: tail connects to node index 0<br>Explanation: There is a cycle in the linked list, where tail connects to the first node.</p>
+<p><strong>Example 3:</strong></p>
+<p>Input: head = [1], pos = -1<br>Output: no cycle<br>Explanation: There is no cycle in the linked list.</p>
+<p><strong>Constraints:</strong></p>
+<p>The number of the nodes in the list is in the range [0, 104].<br>-105 &lt;= Node.val &lt;= 105<br>pos is -1 or a valid index in the linked-list.</p>
+<p>Follow up: Can you solve it using O(1) (i.e. constant) memory?</p>
+</blockquote>
+<p><strong>题目分析</strong></p>
+<p>对于链表找环路的问题，有一个通用的解法——快慢指针（Floyd 判圈法）。给定两个指针，<br>分别命名为slow 和fast，起始位置在链表的开头。每次fast 前进两步，slow 前进一步。如果fast<br>可以走到尽头，那么说明没有环路；如果fast 可以无限走下去，那么说明一定有环路，且一定存<br>在一个时刻slow 和fast 相遇。当slow 和fast 第一次相遇时，我们将fast 重新移动到链表开头，并<br>让slow 和fast 每次都前进一步。当slow 和fast 第二次相遇时，相遇的节点即为环路的开始点。</p>
+<p><strong>题解</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">	ListNode *slow = head, *fast = head;</span><br><span class="line">	<span class="comment">// 判断是否存在环路</span></span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (!fast || !fast-&gt;next) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">	&#125; <span class="keyword">while</span> (fast != slow);</span><br><span class="line">	<span class="comment">// 如果存在，查找环路节点</span></span><br><span class="line">	fast = head;</span><br><span class="line">	<span class="keyword">while</span> (fast != slow)&#123;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		fast = fast-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fast;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>理论分析</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center" alt="在这里插入图片描述"></p>
+<p>将设链表起始点到环入口长度为a，环长为r，在快指针进入到环到慢指针进入环前的这段时间，也许快指针已经走了好几圈。然后慢指针进入环，设慢指针和快指针相遇时，慢指针在环内走了X步，走的总步数为S步</p>
+<p>$S = a+X$</p>
+<p>此时快指针在环内走了n圈加X步，即快指针总步数为</p>
+<p>$S’ = nr+X+a$</p>
+<p>由于快指针走的总步数为慢指针走的总步数的两倍，所以</p>
+<p>$nr+X+a=2(X+a)$</p>
+<p>整理得</p>
+<p>$X+a=nr$</p>
+<p>即</p>
+<p>$a=nr-X=(n-1)r+r-X$</p>
+<p>结论：环入口距离起点的距离（a）和相遇点距离环入口的距离（r-x）相差整数倍的r.</p>
+<p>故让慢指针回到起点，快指针从相遇点开始继续走，步长都为1，则两者再相遇时，即为环入口。</p>
+
       
 
       
@@ -359,6 +399,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2021/03/08/2021-02-27%E5%BE%AE%E8%BD%AF%E7%AC%94%E8%AF%95%E9%A2%98%E7%9B%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          2021.02.27微软笔试题目
+        
+      </div>
+    </a>
+  
   
     <a href="/2021/03/04/C-%EF%BC%9A%E4%B8%80%E4%BA%9B%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%88%E9%9A%8F%E6%97%B6%E8%A1%A5%E5%85%85%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">C++：一些面试常见的问题（随时补充）</div>
@@ -388,7 +437,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%A7%A3%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text">算法解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">典型题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-167-Two-Sum-II-Input-array-is-sorted-EASY"><span class="toc-number">2.0.1.</span> <span class="toc-text">LeetCode NO.167    Two Sum II - Input array is sorted(EASY)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-88-Merge-Sorted-Array-EASY"><span class="toc-number">2.0.2.</span> <span class="toc-text">LeetCode NO.88    Merge Sorted Array(EASY)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-142"><span class="toc-number">2.0.3.</span> <span class="toc-text">LeetCode NO.142</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%A7%A3%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text">算法解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">典型题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-167-Two-Sum-II-Input-array-is-sorted-EASY"><span class="toc-number">2.0.1.</span> <span class="toc-text">LeetCode NO.167    Two Sum II - Input array is sorted(EASY)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-88-Merge-Sorted-Array-EASY"><span class="toc-number">2.0.2.</span> <span class="toc-text">LeetCode NO.88    Merge Sorted Array(EASY)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM"><span class="toc-number">2.0.3.</span> <span class="toc-text">LeetCode NO.142     Linked List Cycle II(MEDIUM)</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -517,6 +566,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面经</a>
               </li>
             
             <div class="clearfix"></div>
