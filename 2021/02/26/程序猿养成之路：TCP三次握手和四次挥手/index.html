@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://img-blog.csdn.net/20180717202520531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img-blog.csdn.net/20180717204202563?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTUwMzE2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="article:published_time" content="2021-02-26T06:49:04.000Z">
-<meta property="article:modified_time" content="2021-03-02T02:33:23.321Z">
+<meta property="article:modified_time" content="2021-03-09T12:30:22.266Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="计算机网络">
@@ -72,7 +72,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数9
+			总文章数10
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -211,6 +211,14 @@
 <li>客户端确认断开ACK，seq=u+1，ack=w+1；</li>
 </ol>
 <p><strong>两次握手和四次握手为什么不可以？</strong><br>TCP是全双工通信，两次握手（一来一回）只能保证单向数据链路是畅通的，但是不能保证方向链路也畅通；<br>因此，为了保证双向链路畅通，需要进行2*2=4次握手，但是服务器的确认和请求可以合并为一步，因此只需要三次握手；<br>而在断开连接时，第2步服务器确认客户端的断开请求之后，客户端-&gt;服务器的单向链路就中断了，但是服务器-&gt;客户端的链路可能还有数据要发送，所以在挥手时，第2、3步不可以合并，也就成了“四次挥手”。</p>
+<p>Q：TCP第四次挥手为什么要等待2MSL？</p>
+<p>A：主要是因为两个理由：</p>
+<ol>
+<li><p>为了保证客户端发送的最后一个ACK报文段能够到达服务器。因为这个ACK有可能丢失，从而导致处在LAST-ACK状态的服务器收不到对FIN-ACK的确认报文。服务器会超时重传这个FIN-ACK，接着客户端再重传一次确认，重新启动时间等待计时器。最后客户端和服务器都能正常的关闭。假设客户端不等待2MSL，而是在发送完ACK之后直接释放关闭，一但这个ACK丢失的话，服务器就无法正常的进入关闭连接状态。</p>
+</li>
+<li><p>他还可以防止已失效的报文段。客户端在发送最后一个ACK之后，再经过经过2MSL，就可以使本链接持续时间内所产生的所有报文段都从网络中消失。从而保证在关闭连接后不会有还在网络中滞留的报文段去骚扰服务器。</p>
+</li>
+</ol>
 <h2 id="TCP三次握手与四次挥手"><a href="#TCP三次握手与四次挥手" class="headerlink" title="TCP三次握手与四次挥手"></a>TCP三次握手与四次挥手</h2><p>计算机网络必学知识，期末考试以及工作面试八股文之首——TCP的三次握手和四次挥手的全过程。</p>
 <h4 id="一、TCP报文格式"><a href="#一、TCP报文格式" class="headerlink" title="一、TCP报文格式"></a>一、TCP报文格式</h4><p>TCP报头中的源端口号和目的端口号同IP数据报中的源IP与目的IP唯一确定一条TCP连接。TCP在发送数据前必须在彼此间建立连接，这里连接意思是：双方需要保存对方信息（例如：IP，Port…）</p>
 <p>报文主要段：</p>
