@@ -17,12 +17,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20180921/2fd7457ea4144034a533ba0a0e5a83b3.png">
 <meta property="og:image" content="https://i.loli.net/2021/03/09/qSZrjG2lF1AfOPs.jpg">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-d32bc53ef9cadc8d.png?imageMogr2/auto-orient/strip|imageView2/2/w/770/format/webp">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-e67fb606d0f5766a.png?imageMogr2/auto-orient/strip|imageView2/2/w/776/format/webp">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-15eac9a1c7fb75e2.png?imageMogr2/auto-orient/strip|imageView2/2/w/788/format/webp">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-3a9669bd3d8c7feb.png?imageMogr2/auto-orient/strip|imageView2/2/w/564/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-d32bc53ef9cadc8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/770/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-e67fb606d0f5766a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/776/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-15eac9a1c7fb75e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/788/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8807674-3a9669bd3d8c7feb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/564/format/webp">
 <meta property="article:published_time" content="2021-03-08T14:16:19.000Z">
-<meta property="article:modified_time" content="2021-03-10T13:15:55.817Z">
+<meta property="article:modified_time" content="2021-03-11T11:27:05.267Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="算法">
@@ -198,33 +198,38 @@
       
         <h2 id="面试经典问题——Top-K问题"><a href="#面试经典问题——Top-K问题" class="headerlink" title="面试经典问题——Top K问题"></a>面试经典问题——Top K问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>从arr[1, n]这n个数中，找出最大的k个数，这就是经典的TopK问题。</p>
 <span id="more"></span>
+
 <h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><h4 id="一、排序"><a href="#一、排序" class="headerlink" title="一、排序"></a>一、排序</h4><p>最容易想到的方法，通过如快排等效率较高的排序算法，可以在平均 O（nlogn）的时间复杂度找到结果。这种方式在数据量不大的时候简单可行，但固然不是最优的方法。</p>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20180921/2fd7457ea4144034a533ba0a0e5a83b3.png" alt=""></p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20180921/2fd7457ea4144034a533ba0a0e5a83b3.png"></p>
 <p><strong>伪代码</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sort(arr, 1, n);</span><br><span class="line">return arr[1, k];</span><br></pre></td></tr></table></figure>
+
 <p><strong>时间复杂度</strong>：$O(nlg(n))$</p>
 <p><strong>分析</strong>：明明只需要TopK，却将全局都排序了，这也是这个方法复杂度非常高的原因。那能不能不全局排序，而只局部排序呢？这就引出了第二个优化方法。</p>
 <h4 id="二、局部排序"><a href="#二、局部排序" class="headerlink" title="二、局部排序"></a>二、局部排序</h4><p>不再全局排序，只对最大的k个排序。</p>
-<p><img src="https://i.loli.net/2021/03/09/qSZrjG2lF1AfOPs.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2021/03/09/qSZrjG2lF1AfOPs.jpg"></p>
 <p><strong>伪代码</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(i&#x3D;1 to k)&#123;</span><br><span class="line">	bubble_find_max(arr,i);</span><br><span class="line">&#125;</span><br><span class="line">return arr[1, k];</span><br></pre></td></tr></table></figure>
+
 <p><strong>时间复杂度</strong>：O(n*k)</p>
 <p><strong>分析</strong>：冒泡，将全局排序优化为了局部排序，非TopK的元素是不需要排序的，节省了计算资源。不少朋友会想到，需求是TopK，是不是这最大的k个元素也不需要排序呢？这就引出了第三个优化方法。</p>
 <h4 id="三、堆"><a href="#三、堆" class="headerlink" title="三、堆"></a>三、堆</h4><p>最经典的解法还是利用堆，因为利用堆可以使用很小的内存处理Top K问题。当有海量数据的时候，内存不可能同时放得下这么数据，上述两种排序的方法不可行。</p>
 <p>维护一个大小为 K 的小顶堆，依次将数据放入堆中，当堆的大小满了的时候，只需要将堆顶元素与下一个数比较：如果大于堆顶元素，则将当前的堆顶元素抛弃，并将该元素插入堆中。遍历完全部数据，Top K 的元素也自然都在堆里面了。当然，如果是求前 K 个最小的数，只需要改为大顶堆即可</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8807674-d32bc53ef9cadc8d.png?imageMogr2/auto-orient/strip|imageView2/2/w/770/format/webp" alt="将数据插入堆"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8807674-e67fb606d0f5766a.png?imageMogr2/auto-orient/strip|imageView2/2/w/776/format/webp" alt="95 大于 20，进行替换"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8807674-15eac9a1c7fb75e2.png?imageMogr2/auto-orient/strip|imageView2/2/w/788/format/webp" alt="95 下沉，维持小顶堆"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8807674-d32bc53ef9cadc8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/770/format/webp" alt="将数据插入堆"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8807674-e67fb606d0f5766a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/776/format/webp" alt="95 大于 20，进行替换"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8807674-15eac9a1c7fb75e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/788/format/webp" alt="95 下沉，维持小顶堆"></p>
 <p><strong>伪代码</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">heap[k] &#x3D; make_heap(arr[1, k]);</span><br><span class="line">	for(i&#x3D;k+1 to n)&#123;</span><br><span class="line">		adjust_heap(heep[k],arr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">return heap[k];</span><br></pre></td></tr></table></figure>
+
 <p><strong>时间复杂度</strong>：O(n*lg(k))</p>
 <p><strong>分析：</strong> 对于海量数据，我们不需要一次性将全部数据取出来，可以一次只取一部分，因为我们只需要将数据一个个拿来与堆顶比较。</p>
 <p>另外还有一个优势就是对于动态数组，我们可以一直都维护一个 K 大小的小顶堆，当有数据被添加到集合中时，我们就直接拿它与堆顶的元素对比。这样，无论任何时候需要查询当前的前 K 大数据，我们都可以里立刻返回给他。</p>
 <p>整个操作中，遍历数组需要 O(n) 的时间复杂度，一次堆化操作需要 O(logK)，加起来就是 O(nlogK) 的复杂度，换个角度来看，如果 K 远小于 n 的话， O(nlogK) 其实就接近于 O(n) 了，甚至会更快，因此也是十分高效的。</p>
 <h4 id="四、随机选择"><a href="#四、随机选择" class="headerlink" title="四、随机选择"></a>四、随机选择</h4><p>随机选择算在是《算法导论》中一个经典的算法，其时间复杂度为O(n)，是一个线性复杂度的方法。快排的 partition 划分思想可以用于计算某个位置的数值等问题，例如用来计算中位数；显然，也适用于计算 TopK 问题。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8807674-3a9669bd3d8c7feb.png?imageMogr2/auto-orient/strip|imageView2/2/w/564/format/webp" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8807674-3a9669bd3d8c7feb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/564/format/webp"></p>
 <p><strong>伪代码</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int RS(arr, low, high, k)&#123;</span><br><span class="line">	if(low&#x3D;&#x3D; high) return arr[low];</span><br><span class="line">	i&#x3D; partition(arr, low, high);</span><br><span class="line">	temp&#x3D; i-low; &#x2F;&#x2F;数组前半部分元素个数</span><br><span class="line">	if(temp&gt;&#x3D;k)</span><br><span class="line">		return RS(arr, low, i-1, k); &#x2F;&#x2F;求前半部分第k大</span><br><span class="line">	else</span><br><span class="line">		return RS(arr, i+1, high, k-i); &#x2F;&#x2F;求后半部分第k-i大</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>时间复杂度：</strong> 这是一个典型的减治算法，递归内的两个分支，最终只会执行一个，它的时间复杂度是O(n)。</p>
 <p><strong>分析：</strong> 每次经过划分，如果中间值等于 K ，那么其左边的数就是 Top K 的数据；<br> 当然，如果不等于，只要递归处理左边或者右边的数即可</p>
 <p>该方法的时间复杂度是 O(n) ，简单分析就是第一次划分时遍历数组需要花费 n，而往后每一次都折半（当然不是准确地折半），粗略地计算就是 n + n/2 + n/4 +… &lt; 2n，因此显然时间复杂度是 O(n)。</p>
@@ -237,7 +242,18 @@
 <li>转化为上文Top K问题——查找频率最大的K个数，采用最小堆的方法；</li>
 <li>归并每个子文件，再进行Top K问题的求解。</li>
 </ul>
-<h4 id="海量数据查找中位数"><a href="#海量数据查找中位数" class="headerlink" title="海量数据查找中位数"></a>海量数据查找中位数</h4>
+<h4 id="海量数据查找中位数"><a href="#海量数据查找中位数" class="headerlink" title="海量数据查找中位数"></a>海量数据查找中位数</h4><p><strong>问题描述</strong></p>
+<p>只有2G内存的pc机，在一个存有10G个整数的文件，从中找到中位数，写一个算法。</p>
+<p><strong>思路</strong></p>
+<ol>
+<li><p>借鉴基数排序思想</p>
+<p>可以用位来判断计数，从最高位到最低位，为了方便表述我们假设为无符号整数，即0x00000000~0xFFFFFFFF依次递增，那么可以遍历所有数据，并记录最高位为0和1的个数（最高位为0的肯定是小于最高位为1的）记为N0、N1<br>那么根据N0和N1的大小就可以知道中位数的最高位是0还是1<br>假设N0&gt;N1，那么再计算N00和N01，<br>如果N00&gt;(N01+N1)，则说明中位数的最高两位是00<br>再计算N000和N001.。。。依次计算就能找到中位数</p>
+</li>
+<li><p>借鉴桶排序的思想</p>
+<p>一个整数假设是32位无符号数<br>第一次扫描把数字2^16​个区间，记录每个区间的整数数目<br>找出中位数具体所在区间<br>第二次扫描则可找出具体中位数数值</p>
+</li>
+</ol>
+
       
 
       
