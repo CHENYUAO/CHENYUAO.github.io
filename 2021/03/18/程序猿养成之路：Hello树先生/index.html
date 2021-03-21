@@ -6,23 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>程序猿养成之路：LeetCode双指针典型题目 | Joe Chen的杂货铺</title>
+  <title>程序猿养成之路：Hello树先生 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="算法解释双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。也可以延伸到多个数组的多个指针。 若两个指针指向同一数组，遍历方向相同且不会相交，则也称为滑动窗口（两个指针包围的区域即为当前的窗口），经常用于区间搜索。">
+  <meta name="description" content="树的数据结构作为（单）链表的升级版，我们通常接触的树都是二叉树（binary tree），即每个节点最多有两个子节点；且除非题目说明，默认树中不存在循环结构。LeetCode 默认的树表示方法如下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="程序猿养成之路：LeetCode双指针典型题目">
-<meta property="og:url" content="http://example.com/2021/03/06/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E5%8F%8C%E6%8C%87%E9%92%88%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:title" content="程序猿养成之路：Hello树先生">
+<meta property="og:url" content="http://example.com/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="算法解释双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。也可以延伸到多个数组的多个指针。 若两个指针指向同一数组，遍历方向相同且不会相交，则也称为滑动窗口（两个指针包围的区域即为当前的窗口），经常用于区间搜索。">
+<meta property="og:description" content="树的数据结构作为（单）链表的升级版，我们通常接触的树都是二叉树（binary tree），即每个节点最多有两个子节点；且除非题目说明，默认树中不存在循环结构。LeetCode 默认的树表示方法如下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center">
-<meta property="article:published_time" content="2021-03-06T10:36:09.000Z">
-<meta property="article:modified_time" content="2021-03-08T04:53:23.158Z">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2021/02/19/symtree1.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/03/18/fT9qCMhRIctug8L.jpg">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2019/07/01/screen-shot-2019-07-01-at-53836-pm.png">
+<meta property="article:published_time" content="2021-03-18T04:13:14.000Z">
+<meta property="article:modified_time" content="2021-03-21T06:36:43.637Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="程序猿养成之路">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2021/02/19/symtree1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
   
@@ -171,126 +173,95 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-程序猿养成之路：LeetCode双指针典型题目" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-程序猿养成之路：Hello树先生" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      程序猿养成之路：LeetCode双指针典型题目
+      程序猿养成之路：Hello树先生
     </h1>
   
 
         
-        <a href="/2021/03/06/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E5%8F%8C%E6%8C%87%E9%92%88%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2021-03-06T10:36:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
+        <a href="/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/" class="archive-article-date">
+  	<time datetime="2021-03-18T04:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="算法解释"><a href="#算法解释" class="headerlink" title="算法解释"></a>算法解释</h2><p>双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。也可以延伸到多<br>个数组的多个指针。</p>
-<p>若两个指针指向同一数组，遍历方向相同且不会相交，则也称为滑动窗口（两个指针包围的<br>区域即为当前的窗口），经常用于区间搜索。</p>
+        <h2 id="树的数据结构"><a href="#树的数据结构" class="headerlink" title="树的数据结构"></a>树的数据结构</h2><p>作为（单）链表的升级版，我们通常接触的树都是二叉树（binary tree），即每个节点最多有两个子节点；且除非题目说明，默认树中不存在循环结构。LeetCode 默认的树表示方法如下。</p>
 <span id="more"></span>
-
-
-
-<p>若两个指针指向同一数组，但是遍历方向相反，则可以用来进行搜索，待搜索的数组往往是<br>排好序的。</p>
-<p>对于C++中指针的一些知识（常量指针、指针常量、函数指针、指针函数等等），有兴趣的读者可以自行了解，</p>
-<p>我之前写过一篇<a target="_blank" rel="noopener" href="https://www.chenyuao.top/2021/02/26/C-%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88/#more">指针常量与常量指针</a></p>
-<hr>
-<h2 id="典型题目"><a href="#典型题目" class="headerlink" title="典型题目"></a>典型题目</h2><h4 id="LeetCode-NO-167-Two-Sum-II-Input-array-is-sorted-EASY"><a href="#LeetCode-NO-167-Two-Sum-II-Input-array-is-sorted-EASY" class="headerlink" title="LeetCode NO.167    Two Sum II - Input array is sorted(EASY)"></a>LeetCode NO.167    <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/">Two Sum II - Input array is sorted</a>(EASY)</h4><p><strong>题目描述</strong></p>
-<blockquote>
-<p>Given an array of integers numbers that is already sorted in ascending order, find two numbers such that they add up to a specific target number.</p>
-<p>Return the indices of the two numbers (1-indexed) as an integer array answer of size 2, where 1 &lt;= answer[0] &lt; answer[1] &lt;= numbers.length.</p>
-<p>You may assume that each input would have exactly one solution and you may not use the same element twice.</p>
-<p><strong>Example 1:</strong></p>
-<p><strong>Input:</strong>  numbers = [2,7,11,15], target = 9<br><strong>Output:</strong>  [1,2]<br>**Explanation: **  The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.</p>
-<p><strong>Example 2:</strong></p>
-<p><strong>Input:</strong>   numbers = [2,3,4], target = 6<br><strong>Output:</strong>  [1,3]</p>
-<p><strong>Example 3:</strong></p>
-<p>**Input: **  numbers = [-1,0], target = -1<br>**Output: **  [1,2]</p>
-<p><strong>Constraints:</strong></p>
-<p>2 &lt;= numbers.length &lt;= 3 * 104<br>-1000 &lt;= numbers[i] &lt;= 1000<br>numbers is sorted in increasing order.<br>-1000 &lt;= target &lt;= 1000<br>Only one valid answer exists.</p>
-</blockquote>
-<p><strong>题目分析</strong></p>
-<p>因为数组已经排好序，我们可以采用方向相反的双指针来寻找这两个数字，一个初始指向最<br>小的元素，即数组最左边，向右遍历；一个初始指向最大的元素，即数组最右边，向左遍历。</p>
-<p>如果两个指针指向元素的和等于给定值，那么它们就是我们要的结果。如果两个指针指向元<br>素的和小于给定值，我们把左边的指针右移一位，使得当前的和增加一点。如果两个指针指向元<br>素的和大于给定值，我们把右边的指针左移一位，使得当前的和减少一点。</p>
-<p>可以证明，对于排好序且有解的数组，双指针一定能遍历到最优解。证明方法如下：假设最<br>优解的两个数的位置分别是l 和r。我们假设在左指针在l 左边的时候，右指针已经移动到了r；<br>此时两个指针指向值的和小于给定值，因此左指针会一直右移直到到达l。同理，如果我们假设<br>在右指针在r 右边的时候，左指针已经移动到了l；此时两个指针指向值的和大于给定值，因此<br>右指针会一直左移直到到达r。所以双指针在任何时候都不可能处于$(l,r)$之间，又因为不满足条<br>件时指针必须移动一个，所以最终一定会收敛在l 和r。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">	TreeNode *left;</span><br><span class="line">	TreeNode *right;</span><br><span class="line">	TreeNode(<span class="keyword">int</span> x) : val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看出，其与链表的主要差别就是多了一个子节点的指针。</p>
+<h2 id="树的递归"><a href="#树的递归" class="headerlink" title="树的递归"></a>树的递归</h2><h4 id="LeetCode-NO-104-Maximum-Depth-of-Binary-Tree"><a href="#LeetCode-NO-104-Maximum-Depth-of-Binary-Tree" class="headerlink" title="LeetCode NO.104 Maximum Depth of Binary Tree"></a>LeetCode NO.104 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">Maximum Depth of Binary Tree</a></h4><p><strong>题目描述</strong></p>
+<p>返回二叉树的最大深度。</p>
 <p><strong>题解</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">0</span>, j = numbers.size()<span class="number">-1</span>;</span><br><span class="line">   <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">       sum = numbers[i] + numbers[j];</span><br><span class="line">       <span class="keyword">if</span>(target == sum)  </span><br><span class="line">           <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &#123;++i,++j&#125;;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; target)    </span><br><span class="line">           ++i;</span><br><span class="line">       <span class="keyword">else</span> --j;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h4 id="LeetCode-NO-88-Merge-Sorted-Array-EASY"><a href="#LeetCode-NO-88-Merge-Sorted-Array-EASY" class="headerlink" title="LeetCode NO.88    Merge Sorted Array(EASY)"></a>LeetCode NO.88    <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-sorted-array/">Merge Sorted Array</a>(EASY)</h4><p><strong>题目描述</strong></p>
-<blockquote>
-<p>Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.</p>
-<p>The number of elements initialized in nums1 and nums2 are m and n respectively. You may assume that nums1 has a size equal to m + n such that it has enough space to hold additional elements from nums2.</p>
-<p><strong>Example 1:</strong></p>
-<p><strong>Input:</strong>  nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3<br>**Output: ** [1,2,2,3,5,6]</p>
-<p><strong>Example 2:</strong></p>
-<p>**Input: ** nums1 = [1], m = 1, nums2 = [], n = 0<br><strong>Output:</strong>  [1]</p>
-<p><strong>Constraints:</strong></p>
-<ul>
-<li>nums1.length == m + n</li>
-<li>nums2.length == n</li>
-<li>0 &lt;= m, n &lt;= 200</li>
-<li>1 &lt;= m + n &lt;= 200</li>
-<li>-109 &lt;= nums1[i], nums2[i] &lt;= 109</li>
-</ul>
-</blockquote>
-<p><strong>题目分析</strong></p>
-<p>因为这两个数组已经排好序，我们可以把两个指针分别放在两个数组的末尾，即nums1 的<br>m-1 位和nums2 的n-1 位。每次将较大的那个数字复制到nums1 的后边，然后向前移动一位。<br>因为我们也要定位nums1 的末尾，所以我们还需要第三个指针，以便复制。</p>
-<p>我们利用i 和j 当作两个数组的指针，再额外创立一个curr指针，起<br>始位置为m+n-1。每次向前移动i或j的时候，也要向前移动curr。这里需要注意，如果nums1<br>的数字已经复制完，不要忘记把nums2 的数字继续复制；如果nums2 的数字已经复制完，剩余<br>nums1 的数字不需要改变，因为它们已经被排好序。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> root? <span class="number">1</span> + max(maxDepth(root-&gt;left), maxDepth(root-&gt;right)): <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="LeetCode-NO-110-Balanced-Binary-Tree"><a href="#LeetCode-NO-110-Balanced-Binary-Tree" class="headerlink" title="LeetCode NO.110 Balanced Binary Tree"></a>LeetCode NO.110 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/balanced-binary-tree/">Balanced Binary Tree</a></h4><p><strong>题目描述</strong></p>
+<p>判断二叉树是否平衡。</p>
 <p><strong>题解</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=m<span class="number">-1</span>,j=n<span class="number">-1</span>,curr = m+n<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>) 	nums1[curr--] = nums1[i] &gt; nums2[j] ? nums1[i--] : nums2[j--];</span><br><span class="line">    <span class="keyword">while</span>(j&gt;=<span class="number">0</span>)    nums1[curr--] = nums2[j--];</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h4 id="LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM"><a href="#LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM" class="headerlink" title="LeetCode NO.142     Linked List Cycle II(MEDIUM)"></a>LeetCode NO.142     <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">Linked List Cycle II</a>(MEDIUM)</h4><p><strong>题目描述</strong></p>
-<blockquote>
-<p>Given a linked list, return the node where the cycle begins. If there is no cycle, return null.</p>
-<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail’s next pointer is connected to. Note that pos is not passed as a parameter.</p>
-<p>Notice that you should not modify the linked list.</p>
-<p><strong>Example 1:</strong></p>
-<p>Input: head = [3,2,0,-4], pos = 1<br>Output: tail connects to node index 1<br>Explanation: There is a cycle in the linked list, where tail connects to the second node.</p>
-<p><strong>Example 2:</strong></p>
-<p>Input: head = [1,2], pos = 0<br>Output: tail connects to node index 0<br>Explanation: There is a cycle in the linked list, where tail connects to the first node.</p>
-<p><strong>Example 3:</strong></p>
-<p>Input: head = [1], pos = -1<br>Output: no cycle<br>Explanation: There is no cycle in the linked list.</p>
-<p><strong>Constraints:</strong></p>
-<p>The number of the nodes in the list is in the range [0, 104].<br>-105 &lt;= Node.val &lt;= 105<br>pos is -1 or a valid index in the linked-list.</p>
-<p>Follow up: Can you solve it using O(1) (i.e. constant) memory?</p>
-</blockquote>
-<p><strong>题目分析</strong></p>
-<p>对于链表找环路的问题，有一个通用的解法——快慢指针（Floyd 判圈法）。给定两个指针，<br>分别命名为slow 和fast，起始位置在链表的开头。每次fast 前进两步，slow 前进一步。如果fast<br>可以走到尽头，那么说明没有环路；如果fast 可以无限走下去，那么说明一定有环路，且一定存<br>在一个时刻slow 和fast 相遇。当slow 和fast 第一次相遇时，我们将fast 重新移动到链表开头，并<br>让slow 和fast 每次都前进一步。当slow 和fast 第二次相遇时，相遇的节点即为环路的开始点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> height(root)!=<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">height</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> leftheight = height(root-&gt;left);</span><br><span class="line">    <span class="keyword">int</span> rightheight = height(root-&gt;right);</span><br><span class="line">    <span class="keyword">if</span>(leftheight == <span class="number">-1</span> || rightheight == <span class="number">-1</span> || <span class="built_in">abs</span>(leftheight-rightheight) &gt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>+max(leftheight,rightheight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="LeetCode-NO-543-Diameter-of-Binary-Tree"><a href="#LeetCode-NO-543-Diameter-of-Binary-Tree" class="headerlink" title="LeetCode NO.543 Diameter of Binary Tree"></a>LeetCode NO.543 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/diameter-of-binary-tree/">Diameter of Binary Tree</a></h4><p><strong>题目描述</strong></p>
+<p>寻找二叉树的最长直径。直径的定义是二叉树上任意两节点之间的无向距离。</p>
 <p><strong>题解</strong></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">	ListNode *slow = head, *fast = head;</span><br><span class="line">	<span class="comment">// 判断是否存在环路</span></span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (!fast || !fast-&gt;next) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">	&#125; <span class="keyword">while</span> (fast != slow);</span><br><span class="line">	<span class="comment">// 如果存在，查找环路节点</span></span><br><span class="line">	fast = head;</span><br><span class="line">	<span class="keyword">while</span> (fast != slow)&#123;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		fast = fast-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fast;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">diameterOfBinaryTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> diameter = <span class="number">0</span>;</span><br><span class="line">    helper(root,diameter);</span><br><span class="line">    <span class="keyword">return</span>  diameter;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(TreeNode* root , <span class="keyword">int</span>&amp; diameter)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span> ) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> l = helper(root-&gt;left,diameter),r = helper(root-&gt;right,diameter);</span><br><span class="line">    diameter = max(l+r,diameter);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>+max(l,r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="LeetCode-NO-437-Path-Sum-III"><a href="#LeetCode-NO-437-Path-Sum-III" class="headerlink" title="LeetCode NO.437 Path Sum III"></a>LeetCode NO.437 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/path-sum-iii/">Path Sum III</a></h4><p><strong>题目描述</strong></p>
+<p>You are given a binary tree in which each node contains an integer value.</p>
+<p>Find the number of paths that sum to a given value.</p>
+<p>The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).</p>
+<p>The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.</p>
+<p><strong>Example:</strong></p>
+<blockquote>
+<p>root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8</p>
+<pre><code>       10
+      /  \
+    5   -3
 
-
-
-
-
-<p><strong>理论分析</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center" alt="在这里插入图片描述"></p>
-<p>将设链表起始点到环入口长度为a，环长为r，在快指针进入到环到慢指针进入环前的这段时间，也许快指针已经走了好几圈。然后慢指针进入环，设慢指针和快指针相遇时，慢指针在环内走了X步，走的总步数为S步</p>
-<p>$S = a+X$</p>
-<p>此时快指针在环内走了n圈加X步，即快指针总步数为</p>
-<p>$S’ = nr+X+a$</p>
-<p>由于快指针走的总步数为慢指针走的总步数的两倍，所以</p>
-<p>$nr+X+a=2(X+a)$</p>
-<p>整理得</p>
-<p>$X+a=nr$</p>
-<p>即</p>
-<p>$a=nr-X=(n-1)r+r-X$</p>
-<p>结论：环入口距离起点的距离（a）和相遇点距离环入口的距离（r-x）相差整数倍的r.</p>
-<p>故让慢指针回到起点，快指针从相遇点开始继续走，步长都为1，则两者再相遇时，即为环入口。</p>
+  /   \    \
+ 3     2     11
+/  \       \
+</code></pre><p>  3   -2      1</p>
+<p>Return 3. The paths that sum to 8 are:</p>
+<ol>
+<li>5 -&gt; 3</li>
+<li>5 -&gt; 2 -&gt; 1</li>
+<li>-3 -&gt; 11</li>
+</ol>
+</blockquote>
+<p><strong>题解</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/*前缀和解法</span></span><br><span class="line"><span class="comment">     *前缀和的概念：一个节点的前缀和就是该节点到根之间的路径和。</span></span><br><span class="line"><span class="comment">     *前缀和的意义：因为对于同一路径上的两个节点，上面的节点是下面节点的祖先节点，所以其前缀和之差即是这两个节点间的路径和（不包含祖先节点的值）。</span></span><br><span class="line"><span class="comment">     *哈希map的使用：key是前缀和， value是该前缀和的节点数量，记录数量是因为有出现复数路径的可能。</span></span><br><span class="line"><span class="comment">     *回溯的意义：因为只有同一条路径上的节点间（节点和其某一祖先节点间）的前缀和做差才有意义。所以当前节点处理完之后，需要从map中移除这一个前缀和，然后再进入下一个分支路径。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//key：前缀和   value：前缀和出现的次数</span></span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; preFixSum;</span><br><span class="line">        <span class="comment">//初始化map</span></span><br><span class="line">        preFixSum[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> curSum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//递归子树</span></span><br><span class="line">        recur(root,sum,<span class="number">0</span>,res,preFixSum);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">recur</span><span class="params">(TreeNode* root,<span class="keyword">int</span> sum,<span class="keyword">int</span> curSum,<span class="keyword">int</span>&amp; res,<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&amp; preFixSum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//计算当前节点前缀和</span></span><br><span class="line">        curSum += root-&gt;val;</span><br><span class="line">        <span class="comment">//查找map，计算当前有多少前缀和为curSum-sum的节点</span></span><br><span class="line">        res+=preFixSum[curSum-sum];</span><br><span class="line">        preFixSum[curSum]++;</span><br><span class="line">        <span class="comment">//递归左右子树</span></span><br><span class="line">        recur(root-&gt;left,sum,curSum,res,preFixSum);</span><br><span class="line">        recur(root-&gt;right,sum,curSum,res,preFixSum);</span><br><span class="line">        <span class="comment">//回溯，恢复原状</span></span><br><span class="line">        preFixSum[curSum]--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="LeetCode-NO-101-Symmetric-Tree"><a href="#LeetCode-NO-101-Symmetric-Tree" class="headerlink" title="LeetCode NO.101 Symmetric Tree"></a>LeetCode NO.101 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/symmetric-tree/">Symmetric Tree</a></h4><p><strong>题目描述</strong></p>
+<p>判断一棵二叉树是否对称。</p>
+<p>Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).</p>
+<p><strong>Example 1:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/02/19/symtree1.jpg" alt=""></p>
+<p>Input: root = [1,2,2,3,4,4,3]<br>Output: true</p>
+<p><strong>Example 2:</strong></p>
+<p><img src="https://i.loli.net/2021/03/18/fT9qCMhRIctug8L.jpg" alt=""></p>
+<p>Input: root = [1,2,2,null,3,null,3]<br>Output: false</p>
+<p><strong>Constraints:</strong></p>
+<p>The number of nodes in the tree is in the range [1, 1000].<br>-100 &lt;= Node.val &lt;= 100</p>
+<p><strong>题解</strong></p>
+<p>判断一个树是否对称等价于判断左右子树是否对称。笔者一般习惯将判断两个子树是否相等或对称类型的题的解法叫做“四步法”：（1）如果两个子树都为空指针，则它们相等或对称；（2）如果两个子树只有一个为空指针，则它们不相等或不对称；（3）如果两个子树根节点的值不相等，则它们不相等或不对称；（4）根据相等或对称要求，进行递归处理。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSymmetric</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> helper(root-&gt;left,root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">helper</span><span class="params">(TreeNode* left,TreeNode* right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!left &amp;&amp; !right) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(!left || !right ) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> helper(left-&gt;left,right-&gt;right) &amp;&amp; helper(left-&gt;right,right-&gt;left);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="LeetCode-NO-1110-Delete-Nodes-And-Return-Forest"><a href="#LeetCode-NO-1110-Delete-Nodes-And-Return-Forest" class="headerlink" title="LeetCode NO.1110 Delete Nodes And Return Forest"></a>LeetCode NO.1110 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-nodes-and-return-forest/">Delete Nodes And Return Forest</a></h4><p><strong>题目描述</strong></p>
+<p>Given the root of a binary tree, each node in the tree has a distinct value.</p>
+<p>After deleting all nodes with a value in to_delete, we are left with a forest (a disjoint union of trees).</p>
+<p>Return the roots of the trees in the remaining forest. You may return the result in any order.</p>
+<p><strong>Example 1:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2019/07/01/screen-shot-2019-07-01-at-53836-pm.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [1,2,3,4,5,6,7], to_delete &#x3D; [3,5]</span><br><span class="line">Output: [[1,2,null,4],[6],[7]]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [1,2,4,null,3], to_delete &#x3D; [3]</span><br><span class="line">Output: [[1,2,4]]</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<p>The number of nodes in the given tree is at most 1000.<br>Each node has a distinct value between 1 and 1000.<br>to_delete.length &lt;= 1000<br>to_delete contains distinct values between 1 and 1000.</p>
+<p><strong>题解</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//后序遍历写法</span></span><br><span class="line"><span class="function">TreeNode* <span class="title">deleteNode</span><span class="params">(TreeNode* root,<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;&amp; dict,<span class="built_in">vector</span>&lt;TreeNode*&gt;&amp; forest)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>) <span class="keyword">return</span> roo</span><br><span class="line">    root-&gt;left = deleteNode(root-&gt;left,dict,forest);</span><br><span class="line">    root-&gt;right = deleteNode(root-&gt;right,dict,forest);</span><br><span class="line">     <span class="comment">//查找节点并删除</span></span><br><span class="line">    <span class="keyword">if</span>(dict.find(root-&gt;val)!=dict.end())&#123;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left)&#123;</span><br><span class="line">            forest.push_back(root-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;right)&#123;</span><br><span class="line">            forest.push_back(root-&gt;right);</span><br><span class="line">        &#125; </span><br><span class="line">        root = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;TreeNode*&gt; <span class="title">delNodes</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; to_delete)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;TreeNode*&gt; forest;</span><br><span class="line">    <span class="function"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dict</span><span class="params">(to_delete.begin(),to_delete.end()</span></span></span><br><span class="line"><span class="function"><span class="params">    root = deleteNode(root,dict,forest);</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">if</span>(root)&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">        forest.push_back(root);</span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">return</span> forest;</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//前序遍历写法，较为繁琐</span></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;TreeNode*&gt; <span class="title">delNodes</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; to_delete)</span></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;TreeNode*&gt; forest;</span><br><span class="line">    <span class="function"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dict</span><span class="params">(to_delete.begin(),to_delete.end())</span></span>;</span><br><span class="line">    TreeNode* prev = <span class="literal">NULL</span>;</span><br><span class="line">    root = deleteNode(root,dict,forest,prev);</span><br><span class="line">    <span class="keyword">if</span>(root)&#123;</span><br><span class="line">        forest.push_back(root);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fore</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TreeNode* deleteNode(TreeNode* root,<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;&amp; dict,<span class="built_in">vector</span>&lt;TreeNode*&gt;&amp; forest,TreeNode* prev)&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    TreeNode* l = root-&gt;left;</span><br><span class="line">    TreeNode* r = root-&gt;right;</span><br><span class="line">    prev = root;</span><br><span class="line">    <span class="keyword">if</span>(dict.find(root-&gt;val)!=dict.end())&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &amp;&amp; dict.find(l-&gt;val)==dict.end())&#123;</span><br><span class="line">            forest.push_back(l);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(r &amp;&amp; dict.find(r-&gt;val)==dict.end())&#123;</span><br><span class="line">            forest.push_back(r);</span><br><span class="line">        &#125;</span><br><span class="line">        root = <span class="literal">NULL</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span>(prev)&#123;</span><br><span class="line">        prev-&gt;left = deleteNode(l,dict,forest,prev);</span><br><span class="line">        prev-&gt;right = deleteNode(r,dict,forest,prev);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -385,7 +356,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/06/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E5%8F%8C%E6%8C%87%E9%92%88%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -399,18 +370,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/08/2021-02-27%E5%BE%AE%E8%BD%AF%E7%AC%94%E8%AF%95%E9%A2%98%E7%9B%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/20/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          2021.02.27微软笔试题目
+          C++中的信号量使用
         
       </div>
     </a>
   
   
-    <a href="/2021/03/02/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">程序猿养成之路：十大排序算法</div>
+    <a href="/2021/03/17/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">程序猿养成之路：深入浅出动态规划</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -437,7 +408,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E8%A7%A3%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text">算法解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">典型题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-167-Two-Sum-II-Input-array-is-sorted-EASY"><span class="toc-number">2.0.1.</span> <span class="toc-text">LeetCode NO.167    Two Sum II - Input array is sorted(EASY)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-88-Merge-Sorted-Array-EASY"><span class="toc-number">2.0.2.</span> <span class="toc-text">LeetCode NO.88    Merge Sorted Array(EASY)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM"><span class="toc-number">2.0.3.</span> <span class="toc-text">LeetCode NO.142     Linked List Cycle II(MEDIUM)</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">树的数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92"><span class="toc-number">2.</span> <span class="toc-text">树的递归</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-104-Maximum-Depth-of-Binary-Tree"><span class="toc-number">2.0.1.</span> <span class="toc-text">LeetCode NO.104 Maximum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-110-Balanced-Binary-Tree"><span class="toc-number">2.0.2.</span> <span class="toc-text">LeetCode NO.110 Balanced Binary Tree</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-543-Diameter-of-Binary-Tree"><span class="toc-number">2.0.3.</span> <span class="toc-text">LeetCode NO.543 Diameter of Binary Tree</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-437-Path-Sum-III"><span class="toc-number">2.0.4.</span> <span class="toc-text">LeetCode NO.437 Path Sum III</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-101-Symmetric-Tree"><span class="toc-number">2.0.5.</span> <span class="toc-text">LeetCode NO.101 Symmetric Tree</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LeetCode-NO-1110-Delete-Nodes-And-Return-Forest"><span class="toc-number">2.0.6.</span> <span class="toc-text">LeetCode NO.1110 Delete Nodes And Return Forest</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
