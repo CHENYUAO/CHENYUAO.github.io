@@ -194,6 +194,9 @@
         <h2 id="算法解释"><a href="#算法解释" class="headerlink" title="算法解释"></a>算法解释</h2><p>双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。也可以延伸到多<br>个数组的多个指针。</p>
 <p>若两个指针指向同一数组，遍历方向相同且不会相交，则也称为滑动窗口（两个指针包围的<br>区域即为当前的窗口），经常用于区间搜索。</p>
 <span id="more"></span>
+
+
+
 <p>若两个指针指向同一数组，但是遍历方向相反，则可以用来进行搜索，待搜索的数组往往是<br>排好序的。</p>
 <p>对于C++中指针的一些知识（常量指针、指针常量、函数指针、指针函数等等），有兴趣的读者可以自行了解，</p>
 <p>我之前写过一篇<a target="_blank" rel="noopener" href="https://www.chenyuao.top/2021/02/26/C-%E6%8C%87%E9%92%88%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%8C%87%E9%92%88/#more">指针常量与常量指针</a></p>
@@ -204,11 +207,11 @@
 <p>Return the indices of the two numbers (1-indexed) as an integer array answer of size 2, where 1 &lt;= answer[0] &lt; answer[1] &lt;= numbers.length.</p>
 <p>You may assume that each input would have exactly one solution and you may not use the same element twice.</p>
 <p><strong>Example 1:</strong></p>
-<p><strong>Input:</strong>  numbers = [2,7,11,15], target = 9<br><strong>Output:</strong>  [1,2]<br><strong>Explanation: </strong>  The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.</p>
+<p><strong>Input:</strong>  numbers = [2,7,11,15], target = 9<br><strong>Output:</strong>  [1,2]<br>**Explanation: **  The sum of 2 and 7 is 9. Therefore index1 = 1, index2 = 2.</p>
 <p><strong>Example 2:</strong></p>
 <p><strong>Input:</strong>   numbers = [2,3,4], target = 6<br><strong>Output:</strong>  [1,3]</p>
 <p><strong>Example 3:</strong></p>
-<p><strong>Input: </strong>  numbers = [-1,0], target = -1<br><strong>Output: </strong>  [1,2]</p>
+<p>**Input: **  numbers = [-1,0], target = -1<br>**Output: **  [1,2]</p>
 <p><strong>Constraints:</strong></p>
 <p>2 &lt;= numbers.length &lt;= 3 * 104<br>-1000 &lt;= numbers[i] &lt;= 1000<br>numbers is sorted in increasing order.<br>-1000 &lt;= target &lt;= 1000<br>Only one valid answer exists.</p>
 </blockquote>
@@ -218,14 +221,19 @@
 <p>可以证明，对于排好序且有解的数组，双指针一定能遍历到最优解。证明方法如下：假设最<br>优解的两个数的位置分别是l 和r。我们假设在左指针在l 左边的时候，右指针已经移动到了r；<br>此时两个指针指向值的和小于给定值，因此左指针会一直右移直到到达l。同理，如果我们假设<br>在右指针在r 右边的时候，左指针已经移动到了l；此时两个指针指向值的和大于给定值，因此<br>右指针会一直左移直到到达r。所以双指针在任何时候都不可能处于$(l,r)$之间，又因为不满足条<br>件时指针必须移动一个，所以最终一定会收敛在l 和r。</p>
 <p><strong>题解</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">0</span>, j = numbers.size()<span class="number">-1</span>;</span><br><span class="line">   <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">       sum = numbers[i] + numbers[j];</span><br><span class="line">       <span class="keyword">if</span>(target == sum)  </span><br><span class="line">           <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &#123;++i,++j&#125;;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span>(sum &lt; target)    </span><br><span class="line">           ++i;</span><br><span class="line">       <span class="keyword">else</span> --j;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h4 id="LeetCode-NO-88-Merge-Sorted-Array-EASY"><a href="#LeetCode-NO-88-Merge-Sorted-Array-EASY" class="headerlink" title="LeetCode NO.88    Merge Sorted Array(EASY)"></a>LeetCode NO.88    <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-sorted-array/">Merge Sorted Array</a>(EASY)</h4><p><strong>题目描述</strong></p>
 <blockquote>
 <p>Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.</p>
 <p>The number of elements initialized in nums1 and nums2 are m and n respectively. You may assume that nums1 has a size equal to m + n such that it has enough space to hold additional elements from nums2.</p>
 <p><strong>Example 1:</strong></p>
-<p><strong>Input:</strong>  nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3<br><strong>Output: </strong> [1,2,2,3,5,6]</p>
+<p><strong>Input:</strong>  nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3<br>**Output: ** [1,2,2,3,5,6]</p>
 <p><strong>Example 2:</strong></p>
-<p><strong>Input: </strong> nums1 = [1], m = 1, nums2 = [], n = 0<br><strong>Output:</strong>  [1]</p>
+<p>**Input: ** nums1 = [1], m = 1, nums2 = [], n = 0<br><strong>Output:</strong>  [1]</p>
 <p><strong>Constraints:</strong></p>
 <ul>
 <li>nums1.length == m + n</li>
@@ -240,6 +248,11 @@
 <p>我们利用i 和j 当作两个数组的指针，再额外创立一个curr指针，起<br>始位置为m+n-1。每次向前移动i或j的时候，也要向前移动curr。这里需要注意，如果nums1<br>的数字已经复制完，不要忘记把nums2 的数字继续复制；如果nums2 的数字已经复制完，剩余<br>nums1 的数字不需要改变，因为它们已经被排好序。</p>
 <p><strong>题解</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=m<span class="number">-1</span>,j=n<span class="number">-1</span>,curr = m+n<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>) 	nums1[curr--] = nums1[i] &gt; nums2[j] ? nums1[i--] : nums2[j--];</span><br><span class="line">    <span class="keyword">while</span>(j&gt;=<span class="number">0</span>)    nums1[curr--] = nums2[j--];</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h4 id="LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM"><a href="#LeetCode-NO-142-Linked-List-Cycle-II-MEDIUM" class="headerlink" title="LeetCode NO.142     Linked List Cycle II(MEDIUM)"></a>LeetCode NO.142     <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">Linked List Cycle II</a>(MEDIUM)</h4><p><strong>题目描述</strong></p>
 <blockquote>
 <p>Given a linked list, return the node where the cycle begins. If there is no cycle, return null.</p>
@@ -259,6 +272,11 @@
 <p>对于链表找环路的问题，有一个通用的解法——快慢指针（Floyd 判圈法）。给定两个指针，<br>分别命名为slow 和fast，起始位置在链表的开头。每次fast 前进两步，slow 前进一步。如果fast<br>可以走到尽头，那么说明没有环路；如果fast 可以无限走下去，那么说明一定有环路，且一定存<br>在一个时刻slow 和fast 相遇。当slow 和fast 第一次相遇时，我们将fast 重新移动到链表开头，并<br>让slow 和fast 每次都前进一步。当slow 和fast 第二次相遇时，相遇的节点即为环路的开始点。</p>
 <p><strong>题解</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">	ListNode *slow = head, *fast = head;</span><br><span class="line">	<span class="comment">// 判断是否存在环路</span></span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (!fast || !fast-&gt;next) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">		fast = fast-&gt;next-&gt;next;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">	&#125; <span class="keyword">while</span> (fast != slow);</span><br><span class="line">	<span class="comment">// 如果存在，查找环路节点</span></span><br><span class="line">	fast = head;</span><br><span class="line">	<span class="keyword">while</span> (fast != slow)&#123;</span><br><span class="line">		slow = slow-&gt;next;</span><br><span class="line">		fast = fast-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fast;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <p><strong>理论分析</strong></p>
 <p><img src="https://img-blog.csdnimg.cn/20201010164433963.png#pic_center" alt="在这里插入图片描述"></p>
 <p>将设链表起始点到环入口长度为a，环长为r，在快指针进入到环到慢指针进入环前的这段时间，也许快指针已经走了好几圈。然后慢指针进入环，设慢指针和快指针相遇时，慢指针在环内走了X步，走的总步数为S步</p>
@@ -531,15 +549,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面经</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">程序猿养成之路</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
