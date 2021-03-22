@@ -191,11 +191,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C/C++中，指针一直是编程语言的灵魂所在，指针的灵活性给编程带来了无限的可能性，但是也给初学者带来了噩梦。<br>本文以一个初学者的视角的看待指针常量和常量指针的区别，以及在完全无法理解的情况下，可以使用的一些技巧。</p>
-<span id="more"></span>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C/C++中，指针一直是编程语言的灵魂所在，指针的灵活性给编程带来了无限的可能性，但是也给初学者带来了噩梦。<br>本文以一个初学者的视角的看待指针常量和常量指针的区别，以及在完全无法理解的情况下，可以使用的一些技巧。<br><span id="more"></span></p>
 <h2 id="问题引出"><a href="#问题引出" class="headerlink" title="问题引出"></a>问题引出</h2><p><img src="https://img-blog.csdnimg.cn/20201022214905947.png#pic_center" alt="指针p指向x"><br>如上图所示，这里定义了一个指针p指向变量x。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span>* p = &amp;x;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="常量指针与指针常量"><a href="#常量指针与指针常量" class="headerlink" title="常量指针与指针常量"></a>常量指针与指针常量</h2><p>这里很容易理解，x和p是变量，其中p是指针，指向x，p中存储了内存区域中x所在的地址。<br>那么如果x是一个常量呢？也就是：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> x = <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
@@ -209,7 +207,7 @@
 <h2 id="区分"><a href="#区分" class="headerlink" title="区分"></a>区分</h2><p>不得不说，两者的区分实在太过困难，即使你已经懂了，过了一会可能又会忘记，或者混淆。那么我们需要一个能够准确、有效、快速区分他们夫妻俩的办法。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = &amp;x;</span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> p = &amp;x;</span><br></pre></td></tr></table></figure>
 <p><strong>谁靠前谁先读：</strong> 比如<br>==const== int ==<em>== p 就读做 常量指针<br>int ==</em>== ==const== p就读做指针常量<br><strong>const靠近谁 谁就不能被修改：</strong></p>
-<p>const int* p 中const靠近int，因此修饰的是int型数据x，x不能被改变；<br>int* const p中，const靠近p，因此修饰的是p，p不能被改变。</p>
+<p>const int<em> p 中const靠近int，因此修饰的是int型数据x，x不能被改变；<br>int</em> const p中，const靠近p，因此修饰的是p，p不能被改变。</p>
 <hr>
 
       
@@ -465,15 +463,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">面经</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">程序猿养成之路</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
