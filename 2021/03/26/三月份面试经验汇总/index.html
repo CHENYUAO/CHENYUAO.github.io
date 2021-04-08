@@ -16,7 +16,7 @@
 <meta property="og:description" content="写在前面历经了将近一个月的煎熬，以及很多次面试完被挂掉的忧伤，最终还是迎来了不错的结局。 虽然感觉很大的运气成分在其中，不过">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-26T02:04:58.000Z">
-<meta property="article:modified_time" content="2021-03-26T02:52:13.232Z">
+<meta property="article:modified_time" content="2021-03-29T12:20:40.952Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="IT,C++,Photograph,Movie">
 <meta name="twitter:card" content="summary">
@@ -67,7 +67,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数16
+			总文章数17
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -197,36 +197,64 @@
 <p>原本计划着实习期好好争取一个转正的机会，不过目前看来还是要begin again了 U•ェ•*U。</p>
 <p>之前经历的面试都没有录音，只能尽量回忆了，应该会有很多的疏漏。</p>
 <h2 id="面经汇总"><a href="#面经汇总" class="headerlink" title="面经汇总"></a>面经汇总</h2><ol>
-<li>TCP三次握手、四次挥手，以及一系列衍生问题（某个包丢失了会怎样？）（为什么要三次握手而不是两次或者四次？）…</li>
-<li>TCP和UDP对比分析</li>
-<li>线程和进程是什么？通信方式？</li>
-<li>熟悉哪些STL容器？</li>
-<li>sort用什么实现的？（是一种混合式排序算法，主要是快排，也会用到桶排序和直接插入排序）</li>
-<li>C++的四种类型转换？</li>
-<li>new和malloc的区别？</li>
-<li>你怎样解决C++的内存泄漏问题？</li>
-<li>重载、重写、隐藏</li>
-<li>题目：如何判断一个二叉树是不是二叉搜索树？（中序遍历）</li>
-<li>题目：剑指offer58.翻转单词顺序</li>
-<li>题目：给你一个数组（包括负数），你可以删除一个数或者不删除，给出子数组的最大和</li>
-</ol>
-<p>（最小数如果是负数，删除它，否则不需要操作，之后可以用dp计算子数组最大和）</p>
-<ol start="12">
-<li>题目：给你一个字符串，返回其子序列的个数（map+回溯法）</li>
-<li>题目：按层次遍历的顺序给绑定next指针</li>
-<li>题目：合并两个有序数组（merge）</li>
-<li>口述思路：上亿个数找最大的k个数（TopK问题，见之前的博客）</li>
-<li>口述思路：上亿个数找出现频率超过一半的数（同上）（PS：与找中位数同理，类似题目还有找出现频率最高的k个数）</li>
-<li>题目：双栈实现队列</li>
-<li>题目：给定目标值，在有序数组中找出子数组，该子数组和为目标值</li>
-<li>题目：给了几组数字找规律，没看出来/(ㄒoㄒ)/~~，最后了解到是银行家舍入法，感兴趣可以去了解一下（对ms印象直接180度转弯）</li>
-<li>Linux kill命令，问得很深，怎么实现的，什么机理（没答出来）</li>
-<li>HTTP长连接和短连接</li>
-<li>讲一讲你了解到的内存相关的知识（很宽泛，可以随意发挥）</li>
-<li>异常处理相关</li>
-<li>浏览一个网页的过程中，具体发生了什么事情？</li>
-<li>想实现查询，可以使用哪些数据结构？</li>
-<li>哈希表问题是什么？怎么解决？解决方案对比</li>
+<li><p>TCP三次握手、四次挥手，以及一系列衍生问题（某个包丢失了会怎样？）（为什么要三次握手而不是两次或者四次？）…</p>
+</li>
+<li><p>TCP和UDP对比分析</p>
+</li>
+<li><p>线程和进程是什么？通信方式？</p>
+</li>
+<li><p>熟悉哪些STL容器？</p>
+</li>
+<li><p>sort用什么实现的？（是一种混合式排序算法，主要是快排，也会用到桶排序和直接插入排序）</p>
+</li>
+<li><p>C++的四种类型转换？</p>
+</li>
+<li><p>new和malloc的区别？</p>
+</li>
+<li><p>你怎样解决C++的内存泄漏问题？</p>
+</li>
+<li><p>重载、重写、隐藏</p>
+</li>
+<li><p>题目：如何判断一个二叉树是不是二叉搜索树？（中序遍历）</p>
+</li>
+<li><p>题目：剑指offer58.翻转单词顺序</p>
+</li>
+<li><p>题目：给你一个数组（包括负数），你可以删除一个数或者不删除，给出子数组的最大和（最小数如果是负数，删除它，否则不需要操作，之后可以用dp计算子数组最大和）</p>
+</li>
+<li><p>题目：给你一个字符串，返回其子序列的个数（map+回溯法）</p>
+</li>
+<li><p>题目：按层次遍历的顺序给绑定next指针</p>
+</li>
+<li><p>题目：合并两个有序数组（merge）</p>
+</li>
+<li><p>口述思路：上亿个数找最大的k个数（TopK问题，见之前的博客）</p>
+</li>
+<li><p>口述思路：上亿个数找出现频率超过一半的数（同上）（PS：与找中位数同理，类似题目还有找出现频率最高的k个数）</p>
+</li>
+<li><p>题目：双栈实现队列</p>
+</li>
+<li><p>题目：给定目标值，在有序数组中找出子数组，该子数组和为目标值</p>
+</li>
+<li><p>题目：给了几组数字找规律，没看出来/(ㄒoㄒ)/~~，最后了解到是银行家舍入法，感兴趣可以去了解一下（对ms印象直接180度转弯）</p>
+</li>
+<li><p>Linux kill命令，问得很深，怎么实现的，什么机理（没答出来）</p>
+</li>
+<li><p>HTTP长连接和短连接</p>
+</li>
+<li><p>讲一讲你了解到的内存相关的知识（很宽泛，可以随意发挥）</p>
+</li>
+<li><p>异常处理相关</p>
+</li>
+<li><p>浏览一个网页的过程中，具体发生了什么事情？</p>
+</li>
+<li><p>想实现查询，可以使用哪些数据结构？</p>
+</li>
+<li><p>哈希表问题是什么？怎么解决？解决方案对比</p>
+</li>
+<li><p>Linux grep命令的使用</p>
+</li>
+<li><p>select/poll/epoll</p>
+</li>
 </ol>
 
       
@@ -320,6 +348,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/04/08/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Go语言学习笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2021/03/22/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
@@ -483,6 +520,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Go语言</a>
               </li>
             
             <div class="clearfix"></div>
