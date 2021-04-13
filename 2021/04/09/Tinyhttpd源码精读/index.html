@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021/3 | Joe Chen的杂货铺</title>
+  <title>Tinyhttpd源码精读 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="武汉大学研究生一枚，在成为码农的道路上努力着！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Joe Chen的杂货铺">
-<meta property="og:url" content="http://example.com/archives/2021/03/page/2/index.html">
+  <meta name="description" content="写在前面Tinyhttpd 是J. David Blackstone在1999年写的一个不到 500 行的超轻量型 Http Server，支持CGI，非常适合初学者学习，可以帮助我们真正理解服务器程序的本质。 官网:http:&#x2F;&#x2F;tinyhttpd.sourceforge.net GitHub仓库：https:&#x2F;&#x2F;github.com&#x2F;EZLippi&#x2F;Tinyhttpd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tinyhttpd源码精读">
+<meta property="og:url" content="http://example.com/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="武汉大学研究生一枚，在成为码农的道路上努力着！">
+<meta property="og:description" content="写在前面Tinyhttpd 是J. David Blackstone在1999年写的一个不到 500 行的超轻量型 Http Server，支持CGI，非常适合初学者学习，可以帮助我们真正理解服务器程序的本质。 官网:http:&#x2F;&#x2F;tinyhttpd.sourceforge.net GitHub仓库：https:&#x2F;&#x2F;github.com&#x2F;EZLippi&#x2F;Tinyhttpd">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/04/09/j5wo9WBn1yvz3ka.png">
+<meta property="og:image" content="c:/Users/m1592/Desktop/屏幕截图%202021-04-10%20115046.png">
+<meta property="og:image" content="https://i.loli.net/2021/04/10/NQklwZHoaKAeUvS.png">
+<meta property="article:published_time" content="2021-04-09T04:00:54.000Z">
+<meta property="article:modified_time" content="2021-04-10T04:09:02.091Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="IT,C++,Photograph,Movie">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/04/09/j5wo9WBn1yvz3ka.png">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
   
@@ -166,67 +172,268 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Tinyhttpd源码精读" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/02/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-03-02T07:50:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-02</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/02/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">程序猿养成之路：十大排序算法</a>
+    <h1 class="article-title" itemprop="name">
+      Tinyhttpd源码精读
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        <a href="/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/" class="archive-article-date">
+  	<time datetime="2021-04-09T04:00:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>Tinyhttpd 是J. David Blackstone在1999年写的一个不到 500 行的超轻量型 Http Server，支持CGI，非常适合初学者学习，可以帮助我们真正理解服务器程序的本质。</p>
+<p>官网:<a target="_blank" rel="noopener" href="http://tinyhttpd.sourceforge.net/">http://tinyhttpd.sourceforge.net</a></p>
+<p>GitHub仓库：<a target="_blank" rel="noopener" href="https://github.com/EZLippi/Tinyhttpd">https://github.com/EZLippi/Tinyhttpd</a></p>
+<span id="more"></span>
+<p>源作者的README.md：</p>
+<p>This software is copyright 1999 by J. David Blackstone. Permission is granted to redistribute and modify this software under the terms of the GNU General Public License, available at <a target="_blank" rel="noopener" href="http://www.gnu.org/">http://www.gnu.org/</a> .</p>
+<p>If you use this software or examine the code, I would appreciate knowing and would be overjoyed to hear about it at <a href="mailto:jdavidb@sourceforge.net">jdavidb@sourceforge.net</a> .</p>
+<p>This software is not production quality. It comes with no warranty of any kind, not even an implied warranty of fitness for a particular purpose. I am not responsible for the damage that will likely result if you use this software on your computer system.</p>
+<p>I wrote this webserver for an assignment in my networking class in 1999. We were told that at a bare minimum the server had to serve pages, and told that we would get extra credit for doing “extras.” Perl had introduced me to a whole lot of UNIX functionality (I learned sockets and fork from Perl!), and O’Reilly’s lion book on UNIX system calls plus O’Reilly’s books on CGI and writing web clients in Perl got me thinking and I realized I could make my webserver support CGI with little trouble.</p>
+<p>Now, if you’re a member of the Apache core group, you might not be impressed. But my professor was blown over. Try the color.cgi sample script and type in “chartreuse.” Made me seem smarter than I am, at any rate. :)</p>
+<p>Apache it’s not. But I do hope that this program is a good educational tool for those interested in http/socket programming, as well as UNIX system calls. (There’s some textbook uses of pipes, environment variables, forks, and so on.)</p>
+<p>One last thing: if you look at my webserver or (are you out of mind?!?) use it, I would just be overjoyed to hear about it. Please email me. I probably won’t really be releasing major updates, but if I help you learn something, I’d love to know!</p>
+<p>Happy hacking!</p>
+<blockquote>
+<pre><code>                          J. David Blackstone
+</code></pre></blockquote>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><h2 id="Linux下Socket编程"><a href="#Linux下Socket编程" class="headerlink" title="Linux下Socket编程"></a>Linux下Socket编程</h2><h4 id="socket套接字介绍"><a href="#socket套接字介绍" class="headerlink" title="socket套接字介绍"></a>socket套接字介绍</h4><p>socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。</p>
+<h4 id="基本函数"><a href="#基本函数" class="headerlink" title="基本函数"></a>基本函数</h4><p>1 .  socket函数</p>
+<p>socket函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而<strong>socket()</strong>用于创建一个socket描述符（socket descriptor），它唯一标识一个socket。这个socket描述字跟文件描述字一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。</p>
+<p><code>int socket(int protofamily, int type, int protocol);  //返回sockfd</code></p>
+<p>函数的三个参数：</p>
+<ul>
+<li><code>protofamily</code>：即协议域，又称为协议族（family）。常用的协议族有，AF_INET(IPV4、AF_INET6(IPV6)、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE等等。协议族决定了socket的地址类型，在通信中必须采用对应的地址，如AF_INET决定了要用ipv4地址（32位的）与端口号（16位的）的组合、AF_UNIX决定了要用一个绝对路径名作为地址。</li>
+<li><code>type</code>：指定socket类型。常用的socket类型有，SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET等等（socket的类型有哪些？）。</li>
+<li><code>protocol</code>：顾名思意，就是指定协议。常用的协议有，IPPROTO_TCP、IPPTOTO_UDP、IPPROTO_SCTP、IPPROTO_TIPC等，它们分别对应TCP传输协议、UDP传输协议、STCP传输协议、TIPC传输协议</li>
+</ul>
+<ol>
+<li>bind函数</li>
+</ol>
+<p>bind()函数把一个地址族中的特定地址赋给socket。例如对应AF_INET、AF_INET6就是把一个ipv4或ipv6地址和端口号组合赋给socket。</p>
+<p>函数的三个参数分别为：</p>
+<ul>
+<li><code>sockfd</code>：即socket描述字，它是通过socket()函数创建了，唯一标识一个socket。bind()函数就是将给这个描述字绑定一个名字。</li>
+<li><code>addr</code>：一个const struct sockaddr *指针，指向要绑定给sockfd的协议地址。这个地址结构根据地址创建socket时的地址协议族的不同而不同，如ipv4对应的是：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">    <span class="keyword">sa_family_t</span>    sin_family; <span class="comment">/* address family: AF_INET */</span></span><br><span class="line">    <span class="keyword">in_port_t</span>      sin_port;   <span class="comment">/* port in network byte order */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>   <span class="comment">/* internet address */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Internet address. */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>       s_addr;     <span class="comment">/* address in network byte order */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>addrlen</code>：对应的是地址的长度。</li>
+</ul>
+<p>通常服务器在启动的时候都会绑定一个众所周知的地址（如ip地址+端口号），用于提供服务，客户就可以通过它来接连服务器；而客户端就不用指定，有系统自动分配一个端口号和自身的ip地址组合。这就是为什么通常服务器端在listen之前会调用bind()，而客户端就不会调用，而是在connect()时由系统随机生成一个。</p>
+<blockquote>
+<p><strong>网络字节序与主机字节序</strong></p>
+<p><strong>主机字节序</strong>就是我们平常说的大端和小端模式：不同的CPU有不同的字节序类型，这些字节序是指整数在内存中保存的顺序，这个叫做主机序。引用标准的Big-Endian和Little-Endian的定义如下：</p>
+<p>　　a) Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。</p>
+<p>　　b) Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。</p>
+<p><strong>网络字节序</strong>：4个字节的32 bit值以下面的次序传输：首先是0～7bit，其次8～15bit，然后16～23bit，最后是24~31bit。这种传输次序称作大端字节序。<strong>由于TCP/IP首部中所有的二进制整数在网络中传输时都要求以这种次序，因此它又称作网络字节序。</strong>字节序，顾名思义字节的顺序，就是大于一个字节类型的数据在内存中的存放顺序，一个字节的数据没有顺序的问题了。</p>
+<p>所以：在将一个地址绑定到socket的时候，请先将主机字节序转换成为网络字节序，而不要假定主机字节序跟网络字节序一样使用的是Big-Endian。由于这个问题曾引发过血案！公司项目代码中由于存在这个问题，导致了很多莫名其妙的问题，所以请谨记对主机字节序不要做任何假定，务必将其转化为网络字节序再赋给socket。</p>
+</blockquote>
+<ol>
+<li>listen、connect函数</li>
+</ol>
+<p>如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr *addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>listen函数的第一个参数即为要监听的socket描述字，第二个参数为相应socket可以排队的最大连接个数。socket()函数创建的socket默认是一个主动类型的，listen函数将socket变为被动类型的，等待客户的连接请求。</p>
+<p>connect函数的第一个参数即为客户端的socket描述字，第二参数为服务器的socket地址，第三个参数为socket地址的长度。客户端通过调用connect函数来建立与TCP服务器的连接。</p>
+<ol>
+<li>accept函数</li>
+</ol>
+<p>TCP服务器监听到这个请求之后，就会调用accept()函数取接收请求，这样连接就建立好了。之后就可以开始网络I/O操作了，即类同于普通文件的读写I/O操作。</p>
+<p><code>int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen); //返回连接connect_fd</code></p>
+<p>函数的三个参数：</p>
+<ul>
+<li><p><code>sockfd</code>：参数sockfd就是上面解释中的监听套接字，这个套接字用来监听一个端口，当有一个客户与服务器连接时，它使用这个一个端口号，而此时这个端口号正与这个套接字关联。当然客户不知道套接字这些细节，它只知道一个地址和一个端口号。</p>
+</li>
+<li><p>addr：这是一个结果参数，它用来接受一个返回值，这返回值指定客户端的地址，当然这个地址是通过某个地址结构来描述的，用户应该知道这一个什么样的地址结构。如果对客户的地址不感兴趣，那么可以把这个值设置为NULL。</p>
+</li>
+<li><p>len：如同大家所认为的，它也是结果的参数，用来接受上述addr的结构的大小的，它指明addr结构所占有的字节个数。同样的，它也可以被设置为NULL。</p>
+</li>
+</ul>
+<p>如果accept成功返回，则服务器与客户已经正确建立连接了，此时服务器通过accept返回的套接字来完成与客户的通信。</p>
+<ol>
+<li>read、write函数</li>
+</ol>
+<p>网络I/O操作有下面几组：</p>
+<ul>
+<li>read()/write()</li>
+<li>recv()/send()</li>
+<li>readv()/writev()</li>
+<li>recvmsg()/sendmsg()</li>
+<li>recvfrom()/sendto()</li>
+</ul>
+<p>对应的函数原型如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br><span class="line">              </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">send</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">recv</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> len, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">sendto</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> len, <span class="keyword">int</span> flags,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> struct sockaddr *dest_addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">recvfrom</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> len, <span class="keyword">int</span> flags,</span></span></span><br><span class="line"><span class="function"><span class="params">                 struct sockaddr *src_addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br><span class="line">                 </span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">sendmsg</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct msghdr *msg, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">recvmsg</span><span class="params">(<span class="keyword">int</span> sockfd, struct msghdr *msg, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>close函数</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Linux下多线程编程"><a href="#Linux下多线程编程" class="headerlink" title="Linux下多线程编程"></a>Linux下多线程编程</h2><h2 id="HTTP相关知识"><a href="#HTTP相关知识" class="headerlink" title="HTTP相关知识"></a>HTTP相关知识</h2><h2 id="CGI相关知识"><a href="#CGI相关知识" class="headerlink" title="CGI相关知识"></a>CGI相关知识</h2><h1 id="源码精读"><a href="#源码精读" class="headerlink" title="源码精读"></a>源码精读</h1><h4 id="整体阅读顺序"><a href="#整体阅读顺序" class="headerlink" title="整体阅读顺序"></a>整体阅读顺序</h4><p>在<a target="_blank" rel="noopener" href="https://github.com/EZLippi/Tinyhttpd">GitHub仓库</a>中，作者给出了一些函数解释和建议的阅读顺序。</p>
+<blockquote>
+<p>建议源码阅读顺序： main -&gt; startup -&gt; accept_request -&gt; execute_cgi, 通晓主要工作流程后再仔细把每个函数的源码看一看。</p>
+</blockquote>
+<p>其中main函数为程序入口，startup函数进行了socket套接字的相关操作并返回了套接字描述符，while循环中调用accept函数后，开辟一个新线程并在accept_request进行内容的处理。</p>
+<h4 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h4><p><img src="https://i.loli.net/2021/04/09/j5wo9WBn1yvz3ka.png" alt="main函数"></p>
+<p>整个main函数没有超过30行，进行的操作非常简单，如前文所述，定义相关变量-&gt;进行socket操作-&gt;循环中调用accept等待客户端连接-&gt;开辟新线程进行消息处理。</p>
+<p>但是这里有一个小问题，主线程调用pthread_create开启一个新线程进行消息的处理，随后主线程回到accept等待下一个连接。但是如果在上一个线程没结束的情况下，后一个pthread_create会将newthread参数设置为新线程的ID，同时旧线程脱离了主线程的控制。</p>
+<p>通常来说，这种脱离主线程的子线程被称为分离的(detached)，它应该自然执行结束并释放自身占用的资源。但是代码并没有显式设定thread的属性为detached，在pthread_create函数的第二个参数为NULL的情况下，该线程为Linux默认的joinable属性，子线程的资源无法进行回收。</p>
+<h4 id="startup函数"><a href="#startup函数" class="headerlink" title="startup函数"></a>startup函数</h4><p><img src="C:\Users\m1592\Desktop\屏幕截图 2021-04-10 115046.png" alt="屏幕截图 2021-04-10 115046" style="zoom: 50%;" /></p>
+<p>startup函数就是对socket操作的一个封装，这里不再详细解释。值得注意的是，如果指定端口号为0，那么意味着由服务器默认指定端口，这里多进行一步操作，使用<code>getsockname</code>获取默认端口号。虽然后续没有用到，但是是一个良好的编码习惯。</p>
+<h4 id="accept-request函数"><a href="#accept-request函数" class="headerlink" title="accept_request函数"></a>accept_request函数</h4><p>accept_request函数进行数据包的解析，并根据请求类型进行相应的操作。</p>
+<p>代码get_line函数封装了读取报文一行的</p>
+<p><img src="https://i.loli.net/2021/04/10/NQklwZHoaKAeUvS.png" alt="image-20210410120748014" style="zoom:33%;" /></p>
 
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/04/08/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Go语言学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%8BSocket%E7%BC%96%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">Linux下Socket编程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#socket%E5%A5%97%E6%8E%A5%E5%AD%97%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">socket套接字介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">基本函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E4%B8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">Linux下多线程编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><span class="toc-number">2.3.</span> <span class="toc-text">HTTP相关知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CGI%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><span class="toc-number">2.4.</span> <span class="toc-text">CGI相关知识</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB"><span class="toc-number">3.</span> <span class="toc-text">源码精读</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E9%98%85%E8%AF%BB%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">整体阅读顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#main%E5%87%BD%E6%95%B0"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">main函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#startup%E5%87%BD%E6%95%B0"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">startup函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#accept-request%E5%87%BD%E6%95%B0"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">accept_request函数</span></a></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/03/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/03/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -250,8 +457,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
