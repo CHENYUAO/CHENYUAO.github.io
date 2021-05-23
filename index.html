@@ -65,7 +65,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数19
+			总文章数21
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -168,19 +168,172 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Golang-slice在使用中的的一个大坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法刷题/LRU缓存机制Go语言实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/20/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/">Golang slice在使用中的的一个大坑</a>
+      <a class="article-title" href="/2021/05/23/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/">LRU缓存机制Go语言实现</a>
     </h1>
   
 
         
-        <a href="/2021/05/20/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/" class="archive-article-date">
+        <a href="/2021/05/23/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
+  	<time datetime="2021-05-23T15:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="LRU缓存机制"><a href="#LRU缓存机制" class="headerlink" title="LRU缓存机制"></a>LRU缓存机制</h2><h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> LRU</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;container/list&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LRUCache <span class="keyword">struct</span> &#123;</span><br><span class="line">	Capacity   <span class="keyword">int</span></span><br><span class="line">	DoubleList *list.List</span><br><span class="line">	Hashtable  <span class="keyword">map</span>[<span class="keyword">int</span>]*list.Element</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(<span class="built_in">cap</span> <span class="keyword">int</span>)</span> *<span class="title">LRUCache</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;LRUCache&#123;</span><br><span class="line">		Capacity:   <span class="built_in">cap</span>,</span><br><span class="line">		DoubleList: list.New(),</span><br><span class="line">		Hashtable:  <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*list.Element),</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LRUCache)</span> <span class="title">Get</span><span class="params">(key <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	v, ok := l.Hashtable[key]</span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		l.DoubleList.MoveToFront(v)</span><br><span class="line">		<span class="keyword">return</span> key</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LRUCache)</span> <span class="title">Set</span><span class="params">(key <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">//查找key，如果已经存在，则把该节点放到链表头</span></span><br><span class="line">	v, ok := l.Hashtable[key]</span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		l.DoubleList.MoveToFront(v)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//如果不存在，判断当前map大小</span></span><br><span class="line">	currLen := <span class="built_in">len</span>(l.Hashtable)</span><br><span class="line">	<span class="comment">//map已满，删除链表尾节点，将新节点插入表头</span></span><br><span class="line">	<span class="keyword">if</span> currLen &gt;= l.Capacity &#123;</span><br><span class="line">		del := l.DoubleList.Back().Value</span><br><span class="line">		l.DoubleList.Remove(l.DoubleList.Back())</span><br><span class="line">		<span class="built_in">delete</span>(l.Hashtable, del.(<span class="keyword">int</span>))</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//map未满，直接插入表头</span></span><br><span class="line">	ins := l.DoubleList.PushFront(key)</span><br><span class="line">	l.Hashtable[key] = ins</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/23/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-学习之路/kafka学习总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/21/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/kafka%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">kafka学习总结</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/21/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/kafka%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2021-05-21T08:41:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Kafka介绍"><a href="#Kafka介绍" class="headerlink" title="Kafka介绍"></a>Kafka介绍</h1><h2 id="什么是kafka？"><a href="#什么是kafka？" class="headerlink" title="什么是kafka？"></a>什么是kafka？</h2><p>什么是Kafka？官网描述是这样子的：</p>
+<blockquote>
+<p>Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.</p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2021/05/21/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/kafka%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">kafka</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/21/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/kafka%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-学习之路/Golang-slice在使用中的的一个大坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/">Golang slice在使用中的的一个大坑</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/" class="archive-article-date">
   	<time datetime="2021-05-20T03:41:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-20</time>
 </a>
         
@@ -190,7 +343,7 @@
       
         <h1 id="Golang-在使用slice中的一个大坑"><a href="#Golang-在使用slice中的一个大坑" class="headerlink" title="Golang 在使用slice中的一个大坑"></a>Golang 在使用slice中的一个大坑</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>我们都知道，slice是引用类型，按理来说slice作为函数参数传递，在函数内修改slice的时候应该修改的是原slice的值。但是看下面这个例子：</p>
         
-          <a class="article-more-a" href="/2021/05/20/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/#more">more >></a>
+          <a class="article-more-a" href="/2021/05/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/#more">more >></a>
         
       
 
@@ -214,7 +367,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/20/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Golang-slice%E5%9C%A8%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E7%9A%84%E4%B8%80%E4%B8%AA%E5%A4%A7%E5%9D%91/">展开全文 >></a>
         </p>
       
 
@@ -244,19 +397,19 @@
 
 
   
-    <article id="post-gRPC入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-学习之路/gRPC入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/29/gRPC%E5%85%A5%E9%97%A8/">gRPC入门</a>
+      <a class="article-title" href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/gRPC%E5%85%A5%E9%97%A8/">gRPC入门</a>
     </h1>
   
 
         
-        <a href="/2021/04/29/gRPC%E5%85%A5%E9%97%A8/" class="archive-article-date">
+        <a href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/gRPC%E5%85%A5%E9%97%A8/" class="archive-article-date">
   	<time datetime="2021-04-29T08:04:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-29</time>
 </a>
         
@@ -274,7 +427,7 @@
 <li>进程和进程之可以使用不同语言来实现</li>
 </ul>
         
-          <a class="article-more-a" href="/2021/04/29/gRPC%E5%85%A5%E9%97%A8/#more">more >></a>
+          <a class="article-more-a" href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/gRPC%E5%85%A5%E9%97%A8/#more">more >></a>
         
       
 
@@ -298,7 +451,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/29/gRPC%E5%85%A5%E9%97%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/gRPC%E5%85%A5%E9%97%A8/">展开全文 >></a>
         </p>
       
 
@@ -328,19 +481,19 @@
 
 
   
-    <article id="post-Tinyhttpd源码精读" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-学习之路/Tinyhttpd源码精读" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/">Tinyhttpd源码精读</a>
+      <a class="article-title" href="/2021/04/09/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/">Tinyhttpd源码精读</a>
     </h1>
   
 
         
-        <a href="/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/" class="archive-article-date">
+        <a href="/2021/04/09/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/" class="archive-article-date">
   	<time datetime="2021-04-09T04:00:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-09</time>
 </a>
         
@@ -352,7 +505,7 @@
 <p>官网:<a target="_blank" rel="noopener" href="http://tinyhttpd.sourceforge.net/">http://tinyhttpd.sourceforge.net</a></p>
 <p>GitHub仓库：<a target="_blank" rel="noopener" href="https://github.com/EZLippi/Tinyhttpd">https://github.com/EZLippi/Tinyhttpd</a></p>
         
-          <a class="article-more-a" href="/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/#more">more >></a>
+          <a class="article-more-a" href="/2021/04/09/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/#more">more >></a>
         
       
 
@@ -365,7 +518,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/09/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/09/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Tinyhttpd%E6%BA%90%E7%A0%81%E7%B2%BE%E8%AF%BB/">展开全文 >></a>
         </p>
       
 
@@ -395,19 +548,19 @@
 
 
   
-    <article id="post-Go语言学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-学习之路/Go语言学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/08/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Go语言学习笔记</a>
+      <a class="article-title" href="/2021/04/08/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Go语言学习笔记</a>
     </h1>
   
 
         
-        <a href="/2021/04/08/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <a href="/2021/04/08/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
   	<time datetime="2021-04-08T12:47:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-08</time>
 </a>
         
@@ -420,7 +573,7 @@
 <li>博客网站： <a target="_blank" rel="noopener" href="https://www.liwenzhou.com/">https://www.liwenzhou.com/</a></li>
 </ul>
         
-          <a class="article-more-a" href="/2021/04/08/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
+          <a class="article-more-a" href="/2021/04/08/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
         
       
 
@@ -444,7 +597,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/08/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/08/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 
@@ -474,19 +627,19 @@
 
 
   
-    <article id="post-三月份面试经验汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-面试相关/三月份面试经验汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/26/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/">三月份面试经验汇总</a>
+      <a class="article-title" href="/2021/03/26/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/">三月份面试经验汇总</a>
     </h1>
   
 
         
-        <a href="/2021/03/26/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/" class="archive-article-date">
+        <a href="/2021/03/26/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/" class="archive-article-date">
   	<time datetime="2021-03-26T02:04:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
 </a>
         
@@ -497,7 +650,7 @@
         <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>历经了将近一个月的煎熬，以及很多次面试完被挂掉的忧伤，最终还是迎来了不错的结局。</p>
 <p>虽然感觉很大的运气成分在其中，不过</p>
         
-          <a class="article-more-a" href="/2021/03/26/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/#more">more >></a>
+          <a class="article-more-a" href="/2021/03/26/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/#more">more >></a>
         
       
 
@@ -510,7 +663,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/26/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/26/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/">展开全文 >></a>
         </p>
       
 
@@ -540,19 +693,19 @@
 
 
   
-    <article id="post-面试高频问题汇总（随时更新）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-面试相关/面试高频问题汇总（随时更新）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/">面试高频问题汇总（随时更新）</a>
+      <a class="article-title" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/">面试高频问题汇总（随时更新）</a>
     </h1>
   
 
         
-        <a href="/2021/03/22/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/" class="archive-article-date">
+        <a href="/2021/03/22/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/" class="archive-article-date">
   	<time datetime="2021-03-22T14:57:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
 </a>
         
@@ -564,7 +717,7 @@
 <ol>
 <li><strong>全局静态变量</strong><br>在全局变量前加上关键字static，全局变量就定义成一个全局静态变量。
         
-          <a class="article-more-a" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/#more">more >></a>
+          <a class="article-more-a" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/#more">more >></a>
         
       
 
@@ -588,7 +741,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/">展开全文 >></a>
         </p>
       
 
@@ -618,19 +771,19 @@
 
 
   
-    <article id="post-C-中的信号量使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-学习之路/C-中的信号量使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/20/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/">C++中的信号量使用</a>
+      <a class="article-title" href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/">C++中的信号量使用</a>
     </h1>
   
 
         
-        <a href="/2021/03/20/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+        <a href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/" class="archive-article-date">
   	<time datetime="2021-03-20T02:35:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-20</time>
 </a>
         
@@ -640,7 +793,7 @@
       
         <h2 id="Linux环境中的semaphore使用"><a href="#Linux环境中的semaphore使用" class="headerlink" title="Linux环境中的semaphore使用"></a>Linux环境中的semaphore使用</h2><h4 id="定义信号量"><a href="#定义信号量" class="headerlink" title="定义信号量"></a>定义信号量</h4><p>Linux下信号量的数据结构体为：sem_t。它本质上是一个长整型的数。</p>
         
-          <a class="article-more-a" href="/2021/03/20/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/#more">more >></a>
+          <a class="article-more-a" href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/#more">more >></a>
         
       
 
@@ -664,7 +817,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/20/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/">展开全文 >></a>
         </p>
       
 
@@ -694,19 +847,19 @@
 
 
   
-    <article id="post-程序猿养成之路：Hello树先生" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法刷题/程序猿养成之路：Hello树先生" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">程序猿养成之路：Hello树先生</a>
+      <a class="article-title" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">程序猿养成之路：Hello树先生</a>
     </h1>
   
 
         
-        <a href="/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/" class="archive-article-date">
+        <a href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/" class="archive-article-date">
   	<time datetime="2021-03-18T04:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-18</time>
 </a>
         
@@ -716,7 +869,7 @@
       
         <h2 id="树的数据结构"><a href="#树的数据结构" class="headerlink" title="树的数据结构"></a>树的数据结构</h2><p>作为（单）链表的升级版，我们通常接触的树都是二叉树（binary tree），即每个节点最多有两个子节点；且除非题目说明，默认树中不存在循环结构。LeetCode 默认的树表示方法如下。</p>
         
-          <a class="article-more-a" href="/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/#more">more >></a>
+          <a class="article-more-a" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/#more">more >></a>
         
       
 
@@ -744,152 +897,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/18/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序猿养成之路：深入浅出动态规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/17/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">程序猿养成之路：深入浅出动态规划</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/17/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="archive-article-date">
-  	<time datetime="2021-03-17T03:29:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="算法解释"><a href="#算法解释" class="headerlink" title="算法解释"></a>算法解释</h2><p>这里我们引用一下维基百科的描述：“动态规划（Dynamic Programming, DP）在查找有很多重叠子问题的情况的最优解时有效。它将题重新组合成子问题。为了避免多次解决这些子问题，它们的结果都逐渐被计算并被保存，从简单的问题直到整个问题都被解决。因此，动态规划保存递归时的结果，因而不会在解决同样的问题时花费时间······动态规划只能应用于有最优子结构的问题。最优子结构的意思是局部最优解能决定全局最优解（对有些问题这个要求并不能完全满足，故有时需要引入一定的近似）。简单地说，问题能够分解成子问题来解决。”</p>
-        
-          <a class="article-more-a" href="/2021/03/17/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/17/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序猿养成之路：DFS-BFS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/10/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ADFS-BFS/">程序猿养成之路：DFS&amp;BFS</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/10/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ADFS-BFS/" class="archive-article-date">
-  	<time datetime="2021-03-10T06:01:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="深度优先搜索"><a href="#深度优先搜索" class="headerlink" title="深度优先搜索"></a>深度优先搜索</h2><p>深度优先搜索（depth-first seach，DFS）在搜索到一个新的节点时，立即对该新节点进行遍<br>历；因此遍历需要用先入后出的栈来实现，也可以通过与栈等价的递归来实现。</p>
-        
-          <a class="article-more-a" href="/2021/03/10/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ADFS-BFS/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/10/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ADFS-BFS/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">展开全文 >></a>
         </p>
       
 
@@ -921,7 +929,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1049,6 +1057,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">kafka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">go</a>
               </li>
             
             <div class="clearfix"></div>
