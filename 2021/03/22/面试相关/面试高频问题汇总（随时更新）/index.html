@@ -16,7 +16,7 @@
 <meta property="og:description" content="Q: 说一下static关键字的作用A:   全局静态变量在全局变量前加上关键字static，全局变量就定义成一个全局静态变量。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-22T14:57:16.000Z">
-<meta property="article:modified_time" content="2021-03-22T14:57:42.924Z">
+<meta property="article:modified_time" content="2021-05-24T10:39:51.477Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -284,6 +284,16 @@
 <li>渲染页面，构建DOM树。</li>
 <li>关闭TCP连接（四次挥手）。<br>接下来对其中几个步骤展开说一下</li>
 </ol>
+<p><strong>Q：Linux的<code>kill</code>命令和<code>kill -9</code>有什么区别？</strong></p>
+<p>A：两个命令都是用来杀死进程。</p>
+<p>其中不加参数的<code>kill</code>命令会默认发送信号15，也就是<code>kill -15</code>，被称为优雅的退出。</p>
+<p>当使用kill -15时，系统会发送一个SIGTERM的信号给对应的程序。当程序接收到该信号后，具体要如何处理是自己可以决定的。</p>
+<p>这时候，应用程序可以选择：</p>
+<p>1、立即停止程序</p>
+<p>2、释放响应资源后停止程序</p>
+<p>3、忽略该信号，继续执行程序</p>
+<p>因为<code>kill -15</code>信号只是通知对应的进程要进行”安全、干净的退出”，程序接到信号之后，退出前一般会进行一些”准备工作”，如资源释放、临时文件清理等等，如果准备工作做完了，再进行程序的终止。但是，如果在”准备工作”进行过程中，遇到阻塞或者其他问题导致无法成功，那么应用程序可以选择忽略该终止信号。</p>
+<p><code>kill -9</code>信号则会发出SIGKILL信号，告诉进程你已经被终结了，程序会直接退出。该信号要求接收到该信号的程序应该立即结束运行，不能被阻塞或者忽略。</p>
 
       
 
