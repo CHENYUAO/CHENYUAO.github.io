@@ -19,8 +19,9 @@
 <meta property="og:image" content="https://i.loli.net/2021/05/21/VsYuJ7M8l2fmTBc.png">
 <meta property="og:image" content="https://i.loli.net/2021/05/21/OJ9hDzxNYr5WcFZ.png">
 <meta property="og:image" content="https://i.loli.net/2021/05/21/kTaM2KmYxopGSyd.png">
+<meta property="og:image" content="e:/学习笔记/Kafka工作流程.jpg">
 <meta property="article:published_time" content="2021-05-21T08:41:31.000Z">
-<meta property="article:modified_time" content="2021-05-21T10:17:35.424Z">
+<meta property="article:modified_time" content="2021-05-25T02:45:07.985Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
@@ -198,6 +199,7 @@
 <p>Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.</p>
 </blockquote>
 <span id="more"></span>
+
 <p>Kafka是一个分布式、分区的、多副本的、多订阅者，基于zookeeper协调的分布式日志系统/MQ系统，或者说消息中间件。它最初由Linkedin公司开发，常见可以用于web/nginx日志、访问日志，消息服务等等，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。</p>
 <p>Kafka主要设计目标如下：</p>
 <ul>
@@ -207,7 +209,8 @@
 <li>同时支持离线数据处理和实时数据处理。</li>
 <li>Scale out:支持在线水平扩展</li>
 </ul>
-<p><img src="https://img.orchome.com/group1/M00/00/01/KmCudlf4YWCAbQPXAASxr5laXjI309.png" style="zoom: 25%;" /></p>
+<img src="https://img.orchome.com/group1/M00/00/01/KmCudlf4YWCAbQPXAASxr5laXjI309.png" style="zoom: 25%;" />
+
 <p>目前kafka可以做更多的事情，而不仅仅是一个传输消息的MQ。</p>
 <h2 id="Kafka的名词介绍"><a href="#Kafka的名词介绍" class="headerlink" title="Kafka的名词介绍"></a>Kafka的名词介绍</h2><ul>
 <li><code>broker：</code>Kafka 集群包含一个或多个服务器，服务器节点称为broker</li>
@@ -222,11 +225,37 @@
 <h2 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h2><p><img src="https://i.loli.net/2021/05/21/VsYuJ7M8l2fmTBc.png" alt="Kafka工作模式"></p>
 <p>Topic是发布的消息的类别名，一个topic可以有零个，一个或多个消费者订阅该主题的消息。</p>
 <p>对于每个topic，Kafka集群都会维护一个分区log，其表现形式就是一个文件夹，如下图所示。</p>
-<p><img src="https://i.loli.net/2021/05/21/OJ9hDzxNYr5WcFZ.png" alt="AnatomyofaTopic"  /></p>
+<img src="https://i.loli.net/2021/05/21/OJ9hDzxNYr5WcFZ.png" alt="AnatomyofaTopic"  />
+
 <p>每一个分区都是一个顺序的、不可变的消息队列， 并且可以持续的添加。分区中的消息都被分了一个序列号，称之为偏移量(offset)，在每个分区中此偏移量都是唯一的。</p>
 <p>Kafka集群保持所有的消息，直到它们过期（无论消息是否被消费）。实际上消费者所持有的仅有的元数据就是这个offset（偏移量），也就是说offset由消费者来控制：正常情况当消费者消费消息的时候，偏移量也线性的的增加。但是实际偏移量由消费者控制，消费者可以将偏移量重置为更早的位置，重新读取消息。可以看到这种设计对消费者来说操作自如，一个消费者的操作不会影响其它消费者对此log的处理。</p>
 <p>Kafka中采用分区的设计有几个目的。一是可以处理更多的消息，不受单台服务器的限制。Topic拥有多个分区意味着它可以不受限的处理更多的数据。第二，分区可以作为并行处理的单元。</p>
-<p><img src="https://i.loli.net/2021/05/21/kTaM2KmYxopGSyd.png" alt="Consumer" style="zoom: 20%;" /></p>
+<img src="https://i.loli.net/2021/05/21/kTaM2KmYxopGSyd.png" alt="Consumer" style="zoom: 20%;" />
+
+<h2 id="Kafka重要原理"><a href="#Kafka重要原理" class="headerlink" title="Kafka重要原理"></a>Kafka重要原理</h2><h3 id="一、Kafka工作流程"><a href="#一、Kafka工作流程" class="headerlink" title="一、Kafka工作流程"></a>一、Kafka工作流程</h3><img src="E:\学习笔记\Kafka工作流程.jpg" alt="Kafka工作流程" style="zoom: 50%;" />
+
+<p>如上图所示，Kafka工作流程主要分为6步：</p>
+<ol>
+<li>生产者从Kafka集群获取分区Leader信息</li>
+<li>生产者将消息发送给Leader</li>
+<li>Leader将消息写入本地磁盘</li>
+<li>Follower从Leader拉取消息数据</li>
+<li>Follower将消息写入本地磁盘后给Leader发送ACK</li>
+<li>Leader收到所有的Follower的ACK后向生产者发送ACK</li>
+</ol>
+<h3 id="二、选择Partition的原则"><a href="#二、选择Partition的原则" class="headerlink" title="二、选择Partition的原则"></a>二、选择Partition的原则</h3><p>在Kafka中，如果某个topic有多个partition，producer怎么知道该将数据发往哪个partition呢？</p>
+<p>Kafka中有几个原则：</p>
+<ol>
+<li>partition在写入时可以指定需要写入的partition</li>
+<li>如果没有指定partition，但是设置了数据的key，那么Kafka会根据key的值hash出一个partition</li>
+<li>如果既没有指定partition，也没有设置key，那么会采用轮询的方式，即每次取一小段时间的数据写入某个partition，下一小段时间再写入下一个partition</li>
+</ol>
+<h3 id="三、ACK应答机制"><a href="#三、ACK应答机制" class="headerlink" title="三、ACK应答机制"></a>三、ACK应答机制</h3><p>producer在向Kafka写入消息的时候，可以设置参数来确定是否确认Kafka接收到数据，这个参数可以设置为<code>0</code>、<code>1</code>、<code>all</code>。</p>
+<ul>
+<li>0代表producer往集群发送数据不需要等待集群的返回，不确保消息发送成功。安全性最低但是效率最高。</li>
+<li>1代表producer往集群发送数据只要leader应答就可以发送下一条，之确保leader接收到消息</li>
+<li>all代表producer往集群发送数据，leader在等到follower回复ACK后，才会向producer回复ACK，producer才会发送下一条消息。安全性最高，但是效率最低。</li>
+</ul>
 
       
 
@@ -369,7 +398,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Kafka介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFkafka%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是kafka？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka%E7%9A%84%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">Kafka的名词介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">Kafka架构</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Kafka介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFkafka%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">什么是kafka？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka%E7%9A%84%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">Kafka的名词介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">Kafka架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka%E9%87%8D%E8%A6%81%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">Kafka重要原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81Kafka%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">一、Kafka工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%80%89%E6%8B%A9Partition%E7%9A%84%E5%8E%9F%E5%88%99"><span class="toc-number">1.4.2.</span> <span class="toc-text">二、选择Partition的原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81ACK%E5%BA%94%E7%AD%94%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.3.</span> <span class="toc-text">三、ACK应答机制</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
