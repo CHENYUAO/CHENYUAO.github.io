@@ -65,7 +65,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数21
+			总文章数22
 		</nav>
 		<nav class="header-smart-menu">
     		
@@ -167,6 +167,95 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-学习之路/Go语言空接口类型的一个坑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/27/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E7%A9%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/">Go语言空接口类型的一个坑</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/27/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E7%A9%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/" class="archive-article-date">
+  	<time datetime="2021-05-27T12:56:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Go语言空接口类型的一个坑"><a href="#Go语言空接口类型的一个坑" class="headerlink" title="Go语言空接口类型的一个坑"></a>Go语言空接口类型的一个坑</h1><h2 id="前提知识"><a href="#前提知识" class="headerlink" title="前提知识"></a>前提知识</h2><p>Go语言的空接口可以很方便地实现多态，它可以存储任意类型的值，那我们如何获取其存储的具体数据呢？</p>
+<p>想要判断空接口中的值这个时候就可以使用类型断言，其语法格式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.(T)</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li>x：表示类型为<code>interface&#123;&#125;</code>的变量</li>
+<li>T：表示断言<code>x</code>可能是的类型。</li>
+</ul>
+<p>该语法返回两个参数，第一个参数是<code>x</code>转化为<code>T</code>类型后的变量，第二个值是一个布尔值，若为<code>true</code>则表示断言成功，为<code>false</code>则表示断言失败。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>话不多说，上例子</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> element <span class="keyword">struct</span> &#123;</span><br><span class="line">	key   <span class="keyword">int</span></span><br><span class="line">	value <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := element&#123;</span><br><span class="line">		key:   <span class="number">1</span>,</span><br><span class="line">		value: <span class="number">10</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	i = e</span><br><span class="line">	fmt.Println(<span class="string">&quot;the key of i is :&quot;</span>, i.(element).key)</span><br><span class="line">	fmt.Println(<span class="string">&quot;the value of i is :&quot;</span>, i.(element).value)</span><br><span class="line">	<span class="comment">//×</span></span><br><span class="line">	i.(element).key = <span class="number">2</span>  <span class="comment">//这里是报错的！！！</span></span><br><span class="line">	<span class="comment">//√</span></span><br><span class="line">	x := i.(element)</span><br><span class="line">	x.key = <span class="number">2</span></span><br><span class="line">	i = x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里定义了一个空接口i和一个结构体element<br>我把一个element变量赋给i，可以通过类型断言得到结构体的字段值<br>但是没办法通过断言直接修改i的值<br>尝试了一下创建一个新的结构体，把新的结构体赋给i是可以的</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>又去翻阅了一下资料，<code>.(T)</code>会尝试把空接口转换成<code>T</code>类型，这里<code>i.(element)</code>应该是一个转换之后的<code>element</code>类型的匿名结构体，按理说对这个匿名结构体的成员进行赋值应该是可以的（虽然没有变量接收这个值），但是编译器会报一个错误。</p>
+<p>按照类型赋值的语法来说应该是没问题的，那为什么报错呢？这里不太理解，个人感觉是为了避坑所以直接不允许这样操作。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/27/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E7%A9%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-算法刷题/LRU缓存机制Go语言实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -820,86 +909,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法刷题/程序猿养成之路：Hello树先生" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">程序猿养成之路：Hello树先生</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/" class="archive-article-date">
-  	<time datetime="2021-03-18T04:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="树的数据结构"><a href="#树的数据结构" class="headerlink" title="树的数据结构"></a>树的数据结构</h2><p>作为（单）链表的升级版，我们通常接触的树都是二叉树（binary tree），即每个节点最多有两个子节点；且除非题目说明，默认树中不存在循环结构。LeetCode 默认的树表示方法如下。</p>
-        
-          <a class="article-more-a" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">展开全文 >></a>
         </p>
       
 
