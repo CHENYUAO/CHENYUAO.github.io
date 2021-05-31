@@ -191,7 +191,6 @@
         <h1 id="Go语言空接口类型的一个坑"><a href="#Go语言空接口类型的一个坑" class="headerlink" title="Go语言空接口类型的一个坑"></a>Go语言空接口类型的一个坑</h1><h2 id="前提知识"><a href="#前提知识" class="headerlink" title="前提知识"></a>前提知识</h2><p>Go语言的空接口可以很方便地实现多态，它可以存储任意类型的值，那我们如何获取其存储的具体数据呢？</p>
 <p>想要判断空接口中的值这个时候就可以使用类型断言，其语法格式：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.(T)</span><br></pre></td></tr></table></figure>
-
 <p>其中：</p>
 <ul>
 <li>x：表示类型为<code>interface&#123;&#125;</code>的变量</li>
@@ -200,10 +199,14 @@
 <p>该语法返回两个参数，第一个参数是<code>x</code>转化为<code>T</code>类型后的变量，第二个值是一个布尔值，若为<code>true</code>则表示断言成功，为<code>false</code>则表示断言失败。</p>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>话不多说，上例子</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> element <span class="keyword">struct</span> &#123;</span><br><span class="line">	key   <span class="keyword">int</span></span><br><span class="line">	value <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := element&#123;</span><br><span class="line">		key:   <span class="number">1</span>,</span><br><span class="line">		value: <span class="number">10</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	i = e</span><br><span class="line">	fmt.Println(<span class="string">&quot;the key of i is :&quot;</span>, i.(element).key)</span><br><span class="line">	fmt.Println(<span class="string">&quot;the value of i is :&quot;</span>, i.(element).value)</span><br><span class="line">	<span class="comment">//×</span></span><br><span class="line">	i.(element).key = <span class="number">2</span>  <span class="comment">//这里是报错的！！！</span></span><br><span class="line">	<span class="comment">//√</span></span><br><span class="line">	x := i.(element)</span><br><span class="line">	x.key = <span class="number">2</span></span><br><span class="line">	i = x</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这里定义了一个空接口i和一个结构体element<br>我把一个element变量赋给i，可以通过类型断言得到结构体的字段值<br>但是没办法通过断言直接修改i的值<br>尝试了一下创建一个新的结构体，把新的结构体赋给i是可以的</p>
 <h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>又去翻阅了一下资料，<code>.(T)</code>会尝试把空接口转换成<code>T</code>类型，这里<code>i.(element)</code>应该是一个转换之后的<code>element</code>类型的匿名结构体，按理说对这个匿名结构体的成员进行赋值应该是可以的（虽然没有变量接收这个值），但是编译器会报一个错误。</p>
 <p>按照类型赋值的语法来说应该是没问题的，那为什么报错呢？这里不太理解，个人感觉是为了避坑所以直接不允许这样操作。</p>
+<hr>
+<h2 id="20210531更新"><a href="#20210531更新" class="headerlink" title="20210531更新"></a>20210531更新</h2><p>通过Go语言群里老大哥的指点，找到问题所在了。</p>
+<p><strong>Golang不可寻址</strong></p>
+<p>不可寻址, 指的是不能通过&amp;获得其地址。不能获得其地址，自然无法修改它的值。<br>golang中不能寻址的可以总结为：不可变的，临时结果和不安全的。只要符合其中任何一个条件，它就是不可以寻址的。</p>
+<p>具体为：<br>常量的值。<br>基本类型值的字面量<br>算术操作的结果值<br>对各种字面量的索引表达式和切片表达式的结果值，不过有一个例外，对切片字面量的索引结果值却是可寻址的。<br>对字符串变量的索引表达式和切片表达式的结果值。<br>对字典变量的索引表达式的结果值。<br>函数字面量和方法字面量，以及对它们的调用表达式的结果值。<br>结构体字面量的字段值，也就是对结构体字面量的选择表达式的结果值。<br>类型转换表达式的结果值。<br><strong>类型断言表达式的结果值。</strong><br>接收表达式的结果值。</p>
 
       
 
