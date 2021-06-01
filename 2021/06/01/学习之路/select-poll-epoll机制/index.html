@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: go | Joe Chen的杂货铺</title>
+  <title>select,poll,epoll机制 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="武汉大学研究生一枚，在成为码农的道路上努力着！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Joe Chen的杂货铺">
-<meta property="og:url" content="http://example.com/tags/go/index.html">
+  <meta name="description" content="select、poll、epoll前言select、poll、epoll都是I&#x2F;O多路复用的机制，目的是为了同时监听多个描述符。一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。 以网络IO为例，当我们创建socket套接字并等待数据传输到来的时候，程序会被阻塞在recvfrom这里，直到有数据传输过来，该进程被唤醒，然后处理传输过来的数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="select,poll,epoll机制">
+<meta property="og:url" content="http://example.com/2021/06/01/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/select-poll-epoll%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="武汉大学研究生一枚，在成为码农的道路上努力着！">
+<meta property="og:description" content="select、poll、epoll前言select、poll、epoll都是I&#x2F;O多路复用的机制，目的是为了同时监听多个描述符。一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。 以网络IO为例，当我们创建socket套接字并等待数据传输到来的时候，程序会被阻塞在recvfrom这里，直到有数据传输过来，该进程被唤醒，然后处理传输过来的数据。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://static.open-open.com/lib/uploadImg/20140911/20140911103834_133.jpg">
+<meta property="article:published_time" content="2021-06-01T08:15:13.000Z">
+<meta property="article:modified_time" content="2021-06-01T09:21:59.763Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="IT,C++,Photograph,Movie">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://static.open-open.com/lib/uploadImg/20140911/20140911103834_133.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
   
@@ -166,98 +170,207 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-学习之路/select-poll-epoll机制" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/27/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E7%A9%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/" class="archive-article-date">
-  	<time datetime="2021-05-27T12:56:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/27/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E7%A9%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/">Go语言空接口类型的一个坑</a>
+    <h1 class="article-title" itemprop="name">
+      select,poll,epoll机制
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/23/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2021-05-23T15:29:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-23</time>
+        
+        <a href="/2021/06/01/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/select-poll-epoll%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2021-06-01T08:15:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-01</time>
 </a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="select、poll、epoll"><a href="#select、poll、epoll" class="headerlink" title="select、poll、epoll"></a>select、poll、epoll</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>select、poll、epoll都是I/O多路复用的机制，目的是为了同时监听多个描述符。一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。</p>
+<p>以网络IO为例，当我们创建socket套接字并等待数据传输到来的时候，程序会被阻塞在recvfrom这里，直到有数据传输过来，该进程被唤醒，然后处理传输过来的数据。</p>
+<span id="more"></span>
+<p>然而在创建并维护多个socket套接字的时候，情况就变得复杂了起来。主要问题有两个：</p>
+<ol>
+<li>操作系统如何知道网络数据对应于哪个socket？</li>
+<li>如何同时监视多个socket的数据？</li>
+</ol>
+<p>对于第一个问题，由于端口和socket是一一对应的关系，所以很容易由端口号找到对应的socket。</p>
+<p>对于第二个问题，则是I/O多路复用技术需要解决的问题了。</p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>select本质上是维护了一个保存有文件描述符fd的数组，当有socket上的数据需要处理的时候，进程被唤醒，这时候，进程是不知道哪个socket上是有数据的。那么只有一个办法，内核将该数组拷贝至用户区，程序对整个数组进行遍历，如果socket上有数据，那么接着处理对应的事件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">int</span> s = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);  </span><br><span class="line">bind(s, ...)</span><br><span class="line">listen(s, ...)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> fds[] =  存放需要监听的socket</span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> n = select(..., fds, ...)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; fds.count; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fds[i], ...))&#123;</span><br><span class="line">            <span class="comment">//fds[i]的数据处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这种思路理解起来很简单，就是暴力遍历，所以操作的开销很大，出于效率的考量，才会规定select的最大监视数量，默认只能监视1024个socket。</p>
+<h2 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h2><p>poll的本质和select没有太大差别，只是将保存文件描述符的数组变成了一个链表，这样解决了1024的上限问题，但是遍历的效率仍然很低。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd; <span class="comment">/* file descriptor */</span></span><br><span class="line">    <span class="keyword">short</span> events; <span class="comment">/* requested events to watch */</span></span><br><span class="line">    <span class="keyword">short</span> revents; <span class="comment">/* returned events witnessed */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><h4 id="epoll原理"><a href="#epoll原理" class="headerlink" title="epoll原理"></a>epoll原理</h4><p>为了解决上述的效率低下的问题，epoll登场了。</p>
+<p>epoll是在2.6内核中提出的，是之前的select和poll的增强版本。相对于select和poll来说，epoll更加灵活，没有描述符限制。epoll使用一个文件描述符管理多个描述符，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次。</p>
+<p>epoll的底层采用了一棵红黑树和一个双向链表。</p>
+<p>其中红黑树代替了之前select的数组以及poll的链表，用来保存需要监视的socket。选择红黑树是因为它是一种自平衡二叉查找树，搜索、插入和删除时间复杂度都是O(log(N))，效率较好。</p>
+<p>双向链表用来保存就绪的socket，即需要处理的事件。这样在epoll被触发的时候，直接返回该链表，用户程序不需要对监听的socket进行完整的遍历就可以知道哪些socket有待处理。</p>
+<p><img src="http://static.open-open.com/lib/uploadImg/20140911/20140911103834_133.jpg" style="zoom: 67%;" /></p>
+<h4 id="epoll操作"><a href="#epoll操作" class="headerlink" title="epoll操作"></a>epoll操作</h4><p>Linux中提供的epoll相关函数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>epoll_create</code>用来创建一个epoll，初始化相关的数据结构。其中参数<code>size</code>指定内核维护的队列大小，不过在2.6.8之后这个参数就没有实际价值了，因为内核维护一个动态的队列了。函数返回的是一个<code>epoll</code>的fd，之后的事件操作通过这个epollfd进行。</p>
+</li>
+<li><p><code>epoll_ctl</code>用来对epoll进行相关操作，其中<code>epfd</code>是<code>epoll_create</code>的返回值，<code>op</code>表示操作的类型，<code>fd</code>是待操作的文件描述符，<code>event</code>是事件队列。</p>
+</li>
+<li><p><code>epoll_wait</code>会阻塞直到事件发生，参数<code>events</code>用来从内核得到事件的集合，<code>maxevents</code>告知内核这个events有多大</p>
+</li>
+</ul>
+<h4 id="epoll的ET和LT机制"><a href="#epoll的ET和LT机制" class="headerlink" title="epoll的ET和LT机制"></a>epoll的ET和LT机制</h4><ul>
+<li>ET(Edge Triggered)边沿触发</li>
+</ul>
+<p>类似于数字信号中的边沿触发模式，在数字信号中，信号从0向1跃变的时候，事件被触发。这里指的是每当有socket接收到数据的时候，epoll会通知应用程序处理该事件，之后不会再通知。所以应用程序必须在这次通知之后将事件处理完毕，否则之后不会再有机会处理事件。</p>
+<ul>
+<li>LT（Level Triggered）水平触发</li>
+</ul>
+<p>还是以数字信号为例，当信号持续为1的时候，事件会一直被触发。在这里理解为，缓冲区只要有没被消耗完的数据，那么epoll会一直通知应用程序去处理。所以在LT工作模式下，事件可以不一次性处理完，分成几次去处理。但是LT模式增加了事件被触发的次数，因此效率较低。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/23/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6Go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/">LRU缓存机制Go语言实现</a>
-    </h1>
-  
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">go</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/06/01/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/select-poll-epoll%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/05/27/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/Go%E8%AF%AD%E8%A8%80%E7%A9%BA%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Go语言空接口类型的一个坑</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select%E3%80%81poll%E3%80%81epoll"><span class="toc-number">1.</span> <span class="toc-text">select、poll、epoll</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#select"><span class="toc-number">1.2.</span> <span class="toc-text">select</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poll"><span class="toc-number">1.3.</span> <span class="toc-text">poll</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll"><span class="toc-number">1.4.</span> <span class="toc-text">epoll</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">epoll原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">epoll操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll%E7%9A%84ET%E5%92%8CLT%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">epoll的ET和LT机制</span></a></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -280,9 +393,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
