@@ -193,73 +193,9 @@
 <li>NeSTiNg代码仓库：</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://gitlab.com/ipvs/nesting">ipvs / nesting</a></p>
-<h2 id="Nesting安装"><a href="#Nesting安装" class="headerlink" title="Nesting安装"></a>Nesting安装</h2><ol>
-<li><p>确保自己正常安装了omnet++软件5.5.1版本，并且确认自己正确配置了环境变量，安装omnet++的步骤可见下文</p>
-</li>
-<li><p>创建一个工作区文件夹<code>mkdir workspace</code></p>
-</li>
-<li><p>git clone nesting代码</p>
-</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/ipvs/nesting.git</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>git clone inet的4.1.2版本</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --branch v4.1.2 --depth 1 https://github.com/inet-framework/inet.git</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>下载完成后，工作区目录应该如下：</li>
-</ol>
-<blockquote>
-  <workspace>
-</blockquote>
-<blockquote>
-<p>  ├── nesting</p>
-</blockquote>
-<blockquote>
-<p>  └── inet</p>
-</blockquote>
-<h2 id="OMNeT-安装"><a href="#OMNeT-安装" class="headerlink" title="OMNeT+安装"></a>OMNeT+安装</h2><p>相关教程链接：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/louisia/article/details/73088869">毕业设计——Ubuntu安装Omnet++_louisia的专栏-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/BUPTOctopus/article/details/103908004">19 - OMNet++ &amp; NESTING TSN仿真环境搭建 - 博一_章鱼的博客-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21269083">第一讲：OMNET++安装</a></p>
-<p>我的安装步骤：</p>
-<ol>
-<li><p>到omnet++官网<a target="_blank" rel="noopener" href="https://omnetpp.org/download/old"><strong>https://omnetpp.org/download/old</strong></a>下载5.5.1版本的文件压缩包</p>
-</li>
-<li><p>解压文件，进入文件夹</p>
-</li>
-<li><p>在omnetpp-5.5.1文件路径下执行</p>
-</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. setenv</span><br></pre></td></tr></table></figure>
-
-<p>这一步是为了把lib/ 文件夹添加到LD_LIBRARY_PATH</p>
-<ol>
-<li>配置环境变量，<code>vim ~/.bashrc</code>在文件末尾添加</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export PATH=[自己的omnet文件路径/bin]:$PATH</span><br><span class="line">如我的环境变量配置为</span><br><span class="line">export PAHT=/home/chenyuao/TSN/omnetpp-5.5.1/bin:$PATH</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>进行编译前配置</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
-
-<p>如果有类似的提示：<code>configure: error: Bison not found, needed to build OMNeT++/OMNEST -- please install it!</code></p>
-<p>把缺失的软件安装上去即可，一般直接<code>sudo apt-get install 软件名</code>就可以，个别软件在apt包中找不到，需要去找以下对应的软件名是什么</p>
-<ol>
-<li>如果配置没问题，最后会提示<code>Your PATH contains /xxxx/omnet-5.5.1/bin. Good!</code></li>
-</ol>
-<p>![](<a target="_blank" rel="noopener" href="https://tcs.teambition.net/storage/3129507ae1611da1df0eb81efd7475bbfd32?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk1MDdhZTE2MTFkYTFkZjBlYjgxZWZkNzQ3NWJiZmQzMiJ9.39HVfsUKfVI7E1FykZqVuNtxrsWSpJnLEcrGx0CBaBU&amp;download=2021-09-23">https://tcs.teambition.net/storage/3129507ae1611da1df0eb81efd7475bbfd32?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk1MDdhZTE2MTFkYTFkZjBlYjgxZWZkNzQ3NWJiZmQzMiJ9.39HVfsUKfVI7E1FykZqVuNtxrsWSpJnLEcrGx0CBaBU&amp;download=2021-09-23</a> 11-57-25 的屏幕截图.png “”)</p>
-<ol>
-<li><p>执行<code>make</code>这一步时间较长，耐心等待</p>
-</li>
-<li><p>安装完成后，提示可以通过<code>omnetpp</code>打开软件</p>
-</li>
-</ol>
-<p>![](<a target="_blank" rel="noopener" href="https://tcs.teambition.net/storage/3129b7b31415713881dda0d952040056ca6f?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjliN2IzMTQxNTcxMzg4MWRkYTBkOTUyMDQwMDU2Y2E2ZiJ9.qlwM_dKgkVrjRXLLgqloEn4x0vFaLu4rwHJFBo1TArA&amp;download=2021-09-23">https://tcs.teambition.net/storage/3129b7b31415713881dda0d952040056ca6f?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjliN2IzMTQxNTcxMzg4MWRkYTBkOTUyMDQwMDU2Y2E2ZiJ9.qlwM_dKgkVrjRXLLgqloEn4x0vFaLu4rwHJFBo1TArA&amp;download=2021-09-23</a> 12-29-35 的屏幕截图.png “”)</p>
-
+        
+          <a class="article-more-a" href="/2021/09/23/TSN-NeSTiNg%E5%85%A5%E9%97%A8/#more">more >></a>
+        
       
 
       
