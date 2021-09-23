@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021/3 | Joe Chen的杂货铺</title>
+  <title>TSN:NeSTiNg入门 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="武汉大学研究生一枚，在成为码农的道路上努力着！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Joe Chen的杂货铺">
-<meta property="og:url" content="http://example.com/archives/2021/03/index.html">
+  <meta name="description" content="Nesting介绍NeSTiNg是一个使用OMNeT++离散事件仿真框架的时间敏感网络（TSN）仿真模型。 该模型使用INET框架，并通过支持TSN的组件完善其功能。 该模型最初是由一组学生在一个课程项目中开发的，并在University of Stuttgart的IPVS分布式系统组中不断扩充和发展。   NeSTiNg代码仓库：  ipvs &#x2F; nesting Nesting安装 确保自己正常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TSN:NeSTiNg入门">
+<meta property="og:url" content="http://example.com/2021/09/23/TSN-NeSTiNg%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="武汉大学研究生一枚，在成为码农的道路上努力着！">
+<meta property="og:description" content="Nesting介绍NeSTiNg是一个使用OMNeT++离散事件仿真框架的时间敏感网络（TSN）仿真模型。 该模型使用INET框架，并通过支持TSN的组件完善其功能。 该模型最初是由一组学生在一个课程项目中开发的，并在University of Stuttgart的IPVS分布式系统组中不断扩充和发展。   NeSTiNg代码仓库：  ipvs &#x2F; nesting Nesting安装 确保自己正常">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-23T06:41:23.000Z">
+<meta property="article:modified_time" content="2021-09-23T06:42:13.686Z">
 <meta property="article:author" content="Joe Chen">
-<meta property="article:tag" content="IT,C++,Photograph,Movie">
+<meta property="article:tag" content="TSN">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Joe Chen的杂货铺" type="application/atom+xml">
@@ -166,404 +168,250 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-TSN-NeSTiNg入门" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TSN:NeSTiNg入门
+    </h1>
+  
+
+        
+        <a href="/2021/09/23/TSN-NeSTiNg%E5%85%A5%E9%97%A8/" class="archive-article-date">
+  	<time datetime="2021-09-23T06:41:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-23</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Nesting介绍"><a href="#Nesting介绍" class="headerlink" title="Nesting介绍"></a>Nesting介绍</h2><p>NeSTiNg是一个使用OMNeT++离散事件仿真框架的时间敏感网络（TSN）仿真模型。 该模型使用INET框架，并通过支持TSN的组件完善其功能。 该模型最初是由一组学生在一个课程项目中开发的，并在University of Stuttgart的IPVS分布式系统组中不断扩充和发展。 </p>
+<ul>
+<li>NeSTiNg代码仓库：</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://gitlab.com/ipvs/nesting">ipvs / nesting</a></p>
+<h2 id="Nesting安装"><a href="#Nesting安装" class="headerlink" title="Nesting安装"></a>Nesting安装</h2><ol>
+<li><p>确保自己正常安装了omnet++软件5.5.1版本，并且确认自己正确配置了环境变量，安装omnet++的步骤可见下文</p>
+</li>
+<li><p>创建一个工作区文件夹<code>mkdir workspace</code></p>
+</li>
+<li><p>git clone nesting代码</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/ipvs/nesting.git</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>git clone inet的4.1.2版本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --branch v4.1.2 --depth 1 https://github.com/inet-framework/inet.git</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>下载完成后，工作区目录应该如下：</li>
+</ol>
+<blockquote>
+  <workspace>
+</blockquote>
+<blockquote>
+<p>  ├── nesting</p>
+</blockquote>
+<blockquote>
+<p>  └── inet</p>
+</blockquote>
+<h2 id="OMNeT-安装"><a href="#OMNeT-安装" class="headerlink" title="OMNeT+安装"></a>OMNeT+安装</h2><p>相关教程链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/louisia/article/details/73088869">毕业设计——Ubuntu安装Omnet++_louisia的专栏-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/BUPTOctopus/article/details/103908004">19 - OMNet++ &amp; NESTING TSN仿真环境搭建 - 博一_章鱼的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/21269083">第一讲：OMNET++安装</a></p>
+<p>我的安装步骤：</p>
+<ol>
+<li><p>到omnet++官网<a target="_blank" rel="noopener" href="https://omnetpp.org/download/old"><strong>https://omnetpp.org/download/old</strong></a>下载5.5.1版本的文件压缩包</p>
+</li>
+<li><p>解压文件，进入文件夹</p>
+</li>
+<li><p>在omnetpp-5.5.1文件路径下执行</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. setenv</span><br></pre></td></tr></table></figure>
+
+<p>这一步是为了把lib/ 文件夹添加到LD_LIBRARY_PATH</p>
+<ol>
+<li>配置环境变量，<code>vim ~/.bashrc</code>在文件末尾添加</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export PATH=[自己的omnet文件路径/bin]:$PATH</span><br><span class="line">如我的环境变量配置为</span><br><span class="line">export PAHT=/home/chenyuao/TSN/omnetpp-5.5.1/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>进行编译前配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
+
+<p>如果有类似的提示：<code>configure: error: Bison not found, needed to build OMNeT++/OMNEST -- please install it!</code></p>
+<p>把缺失的软件安装上去即可，一般直接<code>sudo apt-get install 软件名</code>就可以，个别软件在apt包中找不到，需要去找以下对应的软件名是什么</p>
+<ol>
+<li>如果配置没问题，最后会提示<code>Your PATH contains /xxxx/omnet-5.5.1/bin. Good!</code></li>
+</ol>
+<p>![](<a target="_blank" rel="noopener" href="https://tcs.teambition.net/storage/3129507ae1611da1df0eb81efd7475bbfd32?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk1MDdhZTE2MTFkYTFkZjBlYjgxZWZkNzQ3NWJiZmQzMiJ9.39HVfsUKfVI7E1FykZqVuNtxrsWSpJnLEcrGx0CBaBU&amp;download=2021-09-23">https://tcs.teambition.net/storage/3129507ae1611da1df0eb81efd7475bbfd32?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk1MDdhZTE2MTFkYTFkZjBlYjgxZWZkNzQ3NWJiZmQzMiJ9.39HVfsUKfVI7E1FykZqVuNtxrsWSpJnLEcrGx0CBaBU&amp;download=2021-09-23</a> 11-57-25 的屏幕截图.png “”)</p>
+<ol>
+<li><p>执行<code>make</code>这一步时间较长，耐心等待</p>
+</li>
+<li><p>安装完成后，提示可以通过<code>omnetpp</code>打开软件</p>
+</li>
+</ol>
+<p>![](<a target="_blank" rel="noopener" href="https://tcs.teambition.net/storage/3129b7b31415713881dda0d952040056ca6f?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjliN2IzMTQxNTcxMzg4MWRkYTBkOTUyMDQwMDU2Y2E2ZiJ9.qlwM_dKgkVrjRXLLgqloEn4x0vFaLu4rwHJFBo1TArA&amp;download=2021-09-23">https://tcs.teambition.net/storage/3129b7b31415713881dda0d952040056ca6f?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYzMjk4MDk0NywiaWF0IjoxNjMyMzc2MTQ3LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjliN2IzMTQxNTcxMzg4MWRkYTBkOTUyMDQwMDU2Y2E2ZiJ9.qlwM_dKgkVrjRXLLgqloEn4x0vFaLu4rwHJFBo1TArA&amp;download=2021-09-23</a> 12-29-35 的屏幕截图.png “”)</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/26/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/" class="archive-article-date">
-  	<time datetime="2021-03-26T02:04:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/26/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E4%B8%89%E6%9C%88%E4%BB%BD%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C%E6%B1%87%E6%80%BB/">三月份面试经验汇总</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/22/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-03-22T14:57:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/22/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%EF%BC%88%E9%9A%8F%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/">面试高频问题汇总（随时更新）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TSN</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/23/TSN-NeSTiNg%E5%85%A5%E9%97%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-03-20T02:35:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-20</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/06/05/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/%E5%85%AD%E6%9C%88%E4%BB%BD%E9%9D%A2%E7%BB%8F%E5%B0%8F%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">六月份面经小结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/C-%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%BD%BF%E7%94%A8/">C++中的信号量使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Nesting%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Nesting介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nesting%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">Nesting安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OMNeT-%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">OMNeT+安装</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/" class="archive-article-date">
-  	<time datetime="2021-03-18T04:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-18</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9AHello%E6%A0%91%E5%85%88%E7%94%9F/">程序猿养成之路：Hello树先生</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="archive-article-date">
-  	<time datetime="2021-03-17T03:29:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/17/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">程序猿养成之路：深入浅出动态规划</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/10/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ADFS-BFS/" class="archive-article-date">
-  	<time datetime="2021-03-10T06:01:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/10/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ADFS-BFS/">程序猿养成之路：DFS&amp;BFS</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E7%BB%8F%E5%85%B8Top-K-%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2021-03-08T14:16:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/08/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E7%BB%8F%E5%85%B8Top-K-%E9%97%AE%E9%A2%98/">程序猿养成之路：经典Top K 问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/08/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/2021-02-27%E5%BE%AE%E8%BD%AF%E7%AC%94%E8%AF%95%E9%A2%98%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2021-03-08T03:49:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/08/%E9%9D%A2%E8%AF%95%E7%9B%B8%E5%85%B3/2021-02-27%E5%BE%AE%E8%BD%AF%E7%AC%94%E8%AF%95%E9%A2%98%E7%9B%AE/">2021.02.27微软笔试题目</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">面经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/06/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E5%8F%8C%E6%8C%87%E9%92%88%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2021-03-06T10:36:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/06/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9ALeetCode%E5%8F%8C%E6%8C%87%E9%92%88%E5%85%B8%E5%9E%8B%E9%A2%98%E7%9B%AE/">程序猿养成之路：LeetCode双指针典型题目</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/02/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-03-02T07:50:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/02/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%85%BB%E6%88%90%E4%B9%8B%E8%B7%AF%EF%BC%9A%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">程序猿养成之路：十大排序算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">程序猿养成之路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -586,8 +434,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
