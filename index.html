@@ -168,19 +168,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-学习之路/时间敏感网络标准简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-毕业之路/时间敏感网络标准简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/28/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/">时间敏感网络标准简介</a>
+      <a class="article-title" href="/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/">时间敏感网络标准简介</a>
     </h1>
   
 
         
-        <a href="/2021/12/28/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+        <a href="/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/" class="archive-article-date">
   	<time datetime="2021-12-28T06:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
 </a>
         
@@ -192,66 +192,9 @@
 <p><img src="https://tcs.teambition.net/storage/3129338a410eed92caad308a1b165b033bf9?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY0MTI3NzM4OCwiaWF0IjoxNjQwNjcyNTg4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjkzMzhhNDEwZWVkOTJjYWFkMzA4YTFiMTY1YjAzM2JmOSJ9.qNs-PYF_J-4L9OBny-fI0USTkznyFcArAij19AF3V-Y&download=image.png"></p>
 <p>该数据帧在以太网帧当中插入4个字节802.1Q标签用于定义其特征，介绍如下：</p>
 <p>标签协议标识（TPID）：长2字节，用于标识是否为VLAN数据帧</p>
-<p>标签控制信息（TCI）：长2字节，分三部分。第一部分为优先级标识，3位，作为TSN调度分配的参数。第二部分为规范格式指示位（CFI），1位，通常为零，设置为1时表示可以被丢弃以保证高优先级的QoS。第三部分为VLANID，12位，表示VLAN网络识别号。</p>
-<p>对TSN网络而言，不同优先级的服务对应图3中的PCP码。3位PCP码定义了0（最低）～7(最高）这8个优先级，传输类型分别对应：基础、最大努力、卓越努力、严苛应用、延时和抖动小于100 ms的视频、延时和抖动小于10 ms的音频、内部网络控制、网络控制。</p>
-<p><img src="https://tcs.teambition.net/storage/31297ec23dd332dcfd8cc8b0105565dc12c9?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY0MTI3NzM4OCwiaWF0IjoxNjQwNjcyNTg4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk3ZWMyM2RkMzMyZGNmZDhjYzhiMDEwNTU2NWRjMTJjOSJ9.i3Jo6fmaAcJ0Ygf0k5DhvSqFO8YXyRvjKtEFlIHVTv8&download=image.png"></p>
-<h3 id="相关协议："><a href="#相关协议：" class="headerlink" title="相关协议："></a>相关协议：</h3><table>
-<thead>
-<tr>
-<th>IEEE 802.1Q</th>
-<th>虚拟局域网（virtual local area network，VLAN），定义了一个 VLAN 标签字段，时间敏感网络内的网桥根据相应标签处理数据传输流程，IEEE802.1Q支持服务质量(quality of service，QoS)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>IEEE802.1AS</td>
-<td>TSN要求能够实现高精度时钟同步，用于时钟同步的标准是802.1AS，是一个完全基于二层、非IP 路由的协议。是基于IEEE 1588 V2精确时钟同步协议发展的，称为gPTP-广义时钟同步协议。</td>
-</tr>
-<tr>
-<td>IEEE 802.1AS-rev</td>
-<td>为工业所开发的升级版时钟同步协议，支持新的连接类型（如WiFi）、改善冗余路径的支持能力、增强了时间感知网络的主时钟切换时间等性能</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qat</td>
-<td>流预留协议，通过对数据流的发送端和接收端的服务请求和传输路径进行管理，为数据流预留带宽，不同的数据流按照 StreamID 进行区分</td>
-</tr>
-<tr>
-<td>IEEE  802.1Qav</td>
-<td>增强的时间敏感流的排队及转发协议，在保证时间敏感流服务质量的同时，使得普通异步以太网数据流与时间敏感数据流在网络中共存，它采用了基于信用的整形器（credit-based shaper,CBS），以应对数据突发和聚集，可限制爆发的信息。IEEE802.1Qav以太网保证在7个跳转（hop）最差2 ms Class A和50 ms Class B延时。然而，这个延时对于工业应用来说是不能接受的。为了获取更好的QoS，IEEE 802.1TSN TG又进一步开发了Qbv时间感知整形器、Qbu抢占式MAC等机制</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qbv</td>
-<td>门操作的调度机制，提供可预测的确定性端到端时延，在门操作机制中，为每个交换机端口配置gate control list，该端口根据list 从队列中选择帧进行传输。时间感知整形器（Time Awareness Shaper，TAS）是为了更低的时间粒度、更为严苛的工业控制类应用而设计的调度机制，目前被工业自动化领域的企业所采用。</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qbu  &amp; IEEE  802.3br</td>
-<td>帧抢占机制，高优先级帧可以打断正在传输的低优先级帧，待高优先级帧传输结束后重新开始传输剩余的低优先级帧片段，此机制减小了由于低优先级的阻塞而引入的时延</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qci</td>
-<td>逐流过滤与警管，定义了流的管理与过滤功能，用于避免部分节点流量过载，从而影响其他节点的情况。IEEE 802.1Qci-t表明，它会根据达到时间、速度、带宽，对桥节点输入的每个队列进行滤波和监管，用于保护过大的带宽使用、突发的传输尺寸以及错误或恶意端点。</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qch</td>
-<td>循环排队转发的调度机制，数据帧经过一个网桥的时延范围是确定的，与网络拓扑无关。这使得端到端时延很容易计算，只与源终端到目的终端的跳数有关，且时延抖动很小 。由于CBS机制仅可实现软实时级，路径拓扑会导致持续的延时增加。而最差延时情况与拓扑、跳数、交换机的缓冲需求相关。因此，TSN工作组推进了周期性排队与转发(cyclic quening forwarding,CQF)机制。</td>
-</tr>
-<tr>
-<td>IEEE 802.1CB</td>
-<td>无缝冗余协议，提供了帧复制、帧消除等技术实现</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qcr</td>
-<td>异步流整形(asynchronous traffic shaper，ATS)机制，ATS基于紧急度的调度器设计。其通过重新对每个跳转的TSN流整形，以获得流模式的平滑，实现每个流排队，并使得优先级紧急的数据流可以优先传输。ATS以异步形式运行，桥和终端节点无需同步时间。ATS可以更高效地使用带宽，可运行在高速连接应用的混合负载时间，如周期和非周期数据流。</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qca</td>
-<td>为数据流提供显式路径控制，带宽和流预留以及冗余。它通过携带用于时间同步和调度的信息，使用IS-IS扩展了最短路径桥接（SPB）的功能，以控制桥接网络。它通过使用PCE（路径计算元素）提供显式转发路径控制。PCE是一个实体，能够根据网络拓扑的表示计算出通过网络的路径。IEEE 802.1CB依赖于IEEE 802.1Qca在从发送方到接收方的网络中的不相交路径上传送消息。</td>
-</tr>
-<tr>
-<td>IEEE 802.1Qcc</td>
-<td>IEEE802.1Qat是早期的网络配置方法，而IEEE802.1Qcc则是其增强版，支持集中式的注册与流预留服务，称为SRP增强模式，实现网络的动态配置。IEEE802.1Qcc提供了一套工具，用于全局管理和控制网络，通过UNI来增强SRP，并由一个集中式网络配置（centralized network configuration，CNC）节点作为补充。UNI提供了一个通用L2层服务方法。CNC与UNI交互以提供运行资源的预留、调度以及其他类型的远程管理协议，如NETCONF或RESTCONF；同时，IEEE 802.1Qcc与IETF YANG/NETCONF数据建模语言兼容。这个配置管理机制与IEEE 802.1Qca路径控制与预留，以及TSN整形器相结合，可以实现端到端传输的零堵塞损失。</td>
-</tr>
-</tbody></table>
-
+        
+          <a class="article-more-a" href="/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/#more">more >></a>
+        
       
 
       
@@ -263,7 +206,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/28/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/">展开全文 >></a>
         </p>
       
 

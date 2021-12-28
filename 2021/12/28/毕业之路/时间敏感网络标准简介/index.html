@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>时间敏感网络标准简介 | Joe Chen的杂货铺</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="TSN是基于IEEE 802.1Q标准的VLAN，工作在数据链路层，其数据帧格式如下所示：  该数据帧在以太网帧当中插入4个字节802.1Q标签用于定义其特征，介绍如下： 标签协议标识（TPID）：长2字节，用于标识是否为VLAN数据帧 标签控制信息（TCI）：长2字节，分三部分。第一部分为优先级标识，3位，作为TSN调度分配的参数。第二部分为规范格式指示位（CFI），1位，通常为零，设置为1时表">
+  <meta name="description" content="TSN是基于IEEE 802.1Q标准的VLAN，工作在数据链路层，其数据帧格式如下所示：  该数据帧在以太网帧当中插入4个字节802.1Q标签用于定义其特征，介绍如下： 标签协议标识（TPID）：长2字节，用于标识是否为VLAN数据帧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="时间敏感网络标准简介">
-<meta property="og:url" content="http://example.com/2021/12/28/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:url" content="http://example.com/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="Joe Chen的杂货铺">
-<meta property="og:description" content="TSN是基于IEEE 802.1Q标准的VLAN，工作在数据链路层，其数据帧格式如下所示：  该数据帧在以太网帧当中插入4个字节802.1Q标签用于定义其特征，介绍如下： 标签协议标识（TPID）：长2字节，用于标识是否为VLAN数据帧 标签控制信息（TCI）：长2字节，分三部分。第一部分为优先级标识，3位，作为TSN调度分配的参数。第二部分为规范格式指示位（CFI），1位，通常为零，设置为1时表">
+<meta property="og:description" content="TSN是基于IEEE 802.1Q标准的VLAN，工作在数据链路层，其数据帧格式如下所示：  该数据帧在以太网帧当中插入4个字节802.1Q标签用于定义其特征，介绍如下： 标签协议标识（TPID）：长2字节，用于标识是否为VLAN数据帧">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tcs.teambition.net/storage/3129338a410eed92caad308a1b165b033bf9?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY0MTI3NzM4OCwiaWF0IjoxNjQwNjcyNTg4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjkzMzhhNDEwZWVkOTJjYWFkMzA4YTFiMTY1YjAzM2JmOSJ9.qNs-PYF_J-4L9OBny-fI0USTkznyFcArAij19AF3V-Y&download=image.png">
 <meta property="og:image" content="https://tcs.teambition.net/storage/31297ec23dd332dcfd8cc8b0105565dc12c9?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY0MTI3NzM4OCwiaWF0IjoxNjQwNjcyNTg4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk3ZWMyM2RkMzMyZGNmZDhjYzhiMDEwNTU2NWRjMTJjOSJ9.i3Jo6fmaAcJ0Ygf0k5DhvSqFO8YXyRvjKtEFlIHVTv8&download=image.png">
 <meta property="article:published_time" content="2021-12-28T06:24:45.000Z">
-<meta property="article:modified_time" content="2021-12-28T06:26:35.527Z">
+<meta property="article:modified_time" content="2021-12-28T06:27:46.715Z">
 <meta property="article:author" content="Joe Chen">
 <meta property="article:tag" content="IT,C++,Photograph,Movie">
 <meta name="twitter:card" content="summary">
@@ -171,7 +171,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-学习之路/时间敏感网络标准简介" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-毕业之路/时间敏感网络标准简介" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -183,7 +183,7 @@
   
 
         
-        <a href="/2021/12/28/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+        <a href="/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/" class="archive-article-date">
   	<time datetime="2021-12-28T06:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
 </a>
         
@@ -195,6 +195,8 @@
 <p><img src="https://tcs.teambition.net/storage/3129338a410eed92caad308a1b165b033bf9?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY0MTI3NzM4OCwiaWF0IjoxNjQwNjcyNTg4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjkzMzhhNDEwZWVkOTJjYWFkMzA4YTFiMTY1YjAzM2JmOSJ9.qNs-PYF_J-4L9OBny-fI0USTkznyFcArAij19AF3V-Y&download=image.png"></p>
 <p>该数据帧在以太网帧当中插入4个字节802.1Q标签用于定义其特征，介绍如下：</p>
 <p>标签协议标识（TPID）：长2字节，用于标识是否为VLAN数据帧</p>
+<span id="more"></span>
+
 <p>标签控制信息（TCI）：长2字节，分三部分。第一部分为优先级标识，3位，作为TSN调度分配的参数。第二部分为规范格式指示位（CFI），1位，通常为零，设置为1时表示可以被丢弃以保证高优先级的QoS。第三部分为VLANID，12位，表示VLAN网络识别号。</p>
 <p>对TSN网络而言，不同优先级的服务对应图3中的PCP码。3位PCP码定义了0（最低）～7(最高）这8个优先级，传输类型分别对应：基础、最大努力、卓越努力、严苛应用、延时和抖动小于100 ms的视频、延时和抖动小于10 ms的音频、内部网络控制、网络控制。</p>
 <p><img src="https://tcs.teambition.net/storage/31297ec23dd332dcfd8cc8b0105565dc12c9?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTY0MTI3NzM4OCwiaWF0IjoxNjQwNjcyNTg4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMjk3ZWMyM2RkMzMyZGNmZDhjYzhiMDEwNTU2NWRjMTJjOSJ9.i3Jo6fmaAcJ0Ygf0k5DhvSqFO8YXyRvjKtEFlIHVTv8&download=image.png"></p>
@@ -333,7 +335,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/12/28/%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/12/28/%E6%AF%95%E4%B8%9A%E4%B9%8B%E8%B7%AF/%E6%97%B6%E9%97%B4%E6%95%8F%E6%84%9F%E7%BD%91%E7%BB%9C%E6%A0%87%E5%87%86%E7%AE%80%E4%BB%8B/" alt="微信分享二维码">
     </div>
 </div>
 
